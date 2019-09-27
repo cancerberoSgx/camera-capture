@@ -1,14 +1,14 @@
 import test from 'ava'
 import fileType, { FileTypeResult } from 'file-type'
 import { readFileSync, writeFileSync } from 'fs'
-import { VideoCapture } from '../src/capture'
 import { unique } from 'misc-utils-of-mine-generic'
+import { VideoCapture } from '../src/capture'
 
 test.serial.cb('addFrameListener single ', t => {
   const c = new VideoCapture({ port: 8082, width: 480, height: 360 })
   c.addFrameListener(async frame => {
     t.deepEqual([frame.width, frame.height, frame.data.length], [480, 360, 691200])
-    await  c.stop()
+    await c.stop()
     t.end()
   })
   c.start()
@@ -40,7 +40,7 @@ test.serial('addFrameListener multi encoded', async t => {
   const c = new VideoCapture({ port: 8083, width: 480, height: 360, mime: 'image/jpeg', shots: 3 })
   const frames: ([FileTypeResult | undefined, number, number])[] = []
   c.addFrameListener(frame => {
-writeFileSync(unique('tmp')+'.jpg', frame.data)
+    writeFileSync(unique('tmp') + '.jpg', frame.data)
     frames.push([fileType(frame.data), frame.width, frame.height])
   })
   await c.start()
@@ -49,7 +49,7 @@ writeFileSync(unique('tmp')+'.jpg', frame.data)
     [{ ext: 'jpg', mime: 'image/jpeg' }, 480, 360],
     [{ ext: 'jpg', mime: 'image/jpeg' }, 480, 360]
   ])
-await c.stop()
+  await c.stop()
 })
 
 test.serial('users requesting frames instead notifications', async t => {

@@ -7,7 +7,7 @@
 export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'image/png', quality = 1): Promise<ArrayBuffer> {
   return new Promise((resolve, reject) => canvas.toBlob(async blob => {
     if (blob) {
-    resolve(await  (window as any).blobToArrayBuffer(blob))
+      resolve(await (window as any).blobToArrayBuffer(blob))
       // const r = new FileReader();
       // r.addEventListener('loadend', e => {
       //   const ab = r.result;
@@ -29,30 +29,30 @@ export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'i
 }
 
 
-export function blobToArrayBuffer (blob: Blob) {
+export function blobToArrayBuffer(blob: Blob) {
   // if (typeof cb !== 'function') {
   //   throw new Error('second argument must be a function')
   // }
-return new Promise((resolve, reject)=>{
-  const reader = new FileReader()
-  // if (typeof Blob === 'undefined' || !(blob instanceof Blob)) {
-  //   reject(new Error('first argument must be a Blob'))
-  // }
-  function onLoadEnd (e: any) {
-    reader.removeEventListener('loadend', onLoadEnd, false)
-    if (e.error) {
-      reject(e.error)
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    // if (typeof Blob === 'undefined' || !(blob instanceof Blob)) {
+    //   reject(new Error('first argument must be a Blob'))
+    // }
+    function onLoadEnd(e: any) {
+      reader.removeEventListener('loadend', onLoadEnd, false)
+      if (e.error) {
+        reject(e.error)
+      }
+      // else resolve((window as any).buffer.Buffer.from(reader.result))
+      else if (reader.result) {
+        resolve(reader.result as ArrayBuffer)
+      } else {
+        reject(new Error('Expected FileReader result'))
+      }
     }
-    // else resolve((window as any).buffer.Buffer.from(reader.result))
-    else if(reader.result){
-      resolve(reader.result as ArrayBuffer)
-    }else {
-     reject(new Error('Expected FileReader result'));
-    }
-  }
-  reader.addEventListener('loadend', onLoadEnd, false)
-  reader.readAsArrayBuffer(blob)
-})
+    reader.addEventListener('loadend', onLoadEnd, false)
+    reader.readAsArrayBuffer(blob)
+  })
 }
 
 

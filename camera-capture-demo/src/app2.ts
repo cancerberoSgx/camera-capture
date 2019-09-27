@@ -3,7 +3,6 @@
 import {tryTo} from 'misc-utils-of-mine-generic'
 import { VideoCapture, ImageData } from 'camera-capture'
 import { Window, Container, MessageLoop, Image, Label, Button } from 'gui'
-import Jimp from 'jimp'
 import { realpathSync, readFileSync } from 'fs'
 import { join } from 'path'
 
@@ -71,7 +70,7 @@ async function main() {
   }, 1000)
 
   const capture = new VideoCapture({
-    width: 400, height: 300, port: 8081, mime: 'image/jpeg', constrains: {audio: false, video: {width: 240, height: 200}}
+    width: 800, height: 600, port: 8081, mime: 'image/jpeg', constrains: {audio: false}
   })
   capture.addFrameListener(async frame => {
     // const i = new Jimp(frame)

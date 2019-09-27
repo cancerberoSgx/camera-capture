@@ -1,7 +1,5 @@
-import { sleep, array, printMs } from 'misc-utils-of-mine-generic'
+import { sleep } from 'misc-utils-of-mine-generic'
 import { VideoCapture } from '../src/capture'
-import { CaptureBase } from '../src/captureBase'
-import { readFileSync, writeFileSync, readFile } from 'fs'
 
 async function rgba480x320() {
   const c = new VideoCapture({ port: 8012, width: 480, height: 320, mime: 'rgba' })
@@ -10,14 +8,14 @@ async function rgba480x320() {
     counter++
   })
   const t = setInterval(() => {
-    console.log(`rgba480x320 ${counter++} FPS`);
+    console.log(`rgba480x320 ${counter++} FPS`)
     counter = 0
   }, 1000)
   setTimeout(async () => {
     clearInterval(t)
     await sleep(1200)
     c.stop()
-  }, 15000);
+  }, 15000)
   await c.start()
 }
 // rgba480x320()
@@ -29,22 +27,22 @@ async function jpg480x320() {
     counter++
   })
   const t = setInterval(() => {
-    console.log(`jpg480x320 ${counter++} FPS`);
+    console.log(`jpg480x320 ${counter++} FPS`)
     counter = 0
   }, 1000)
   setTimeout(async () => {
     clearInterval(t)
     await sleep(1200)
     await c.stop()
-  }, 15000);
+  }, 15000)
   await c.start()
 }
 
 
 
-(async ()=>{
+(async () => {
   await rgba480x320()
-  await jpg480x320() 
+  await jpg480x320()
 })()
 
 

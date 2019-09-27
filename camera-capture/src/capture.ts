@@ -1,9 +1,9 @@
-import { checkThrow, mergeRecursive, sleep, serial } from 'misc-utils-of-mine-generic'
-import { canvasToArrayBuffer, startRecording, blobToArrayBuffer } from './browser'
-import { CaptureBase } from './captureBase'
-import { ImageData, Listener, CaptureOptions, SupportedFormats } from './types'
 import { readFileSync } from 'fs'
+import { checkThrow, serial, sleep } from 'misc-utils-of-mine-generic'
 import { join } from 'path'
+import { blobToArrayBuffer, canvasToArrayBuffer, startRecording } from './browser'
+import { CaptureBase } from './captureBase'
+import { CaptureOptions, ImageData, Listener, SupportedFormats } from './types'
 
 export class VideoCapture extends CaptureBase {
 
@@ -94,15 +94,15 @@ export class VideoCapture extends CaptureBase {
       return
     }
     await super.initialize()
-    
-    await this.page!.addScriptTag({content:  readFileSync(join(__dirname, 'assets', 'buffer-5.4.3.min.js')).toString() })
+
+    await this.page!.addScriptTag({ content: readFileSync(join(__dirname, 'assets', 'buffer-5.4.3.min.js')).toString() })
     await this.page!.evaluate((canvasToArrayBufferS, recordTestS, blobToArrayBuffer) => {
       const d = document.createElement('div')
       d.innerHTML = `<video playsinline autoplay></video><canvas></canvas>`
       document.body.append(d);
       (window as any).canvasToArrayBuffer = eval(`(${canvasToArrayBufferS})`);
       (window as any).startRecording = eval(`(${recordTestS})`);
-      (window as any).blobToArrayBuffer = eval(`(${blobToArrayBuffer})`);
+      (window as any).blobToArrayBuffer = eval(`(${blobToArrayBuffer})`)
     }, canvasToArrayBuffer.toString(), startRecording.toString(), blobToArrayBuffer.toString())
     // await this.page!.exposeFunction('postFrame', this._postFrame)
     await this.startCamera()
@@ -136,22 +136,22 @@ export class VideoCapture extends CaptureBase {
     if (this.initialized) {
       //TODO. perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
       //TODO: probably is faster to use canvas API to encode frames directly instead first as data - if users wants ust encoded then do that.
-    const data =  await this.page!.evaluate(async (mime: SupportedFormats = 'rgba', width: number, height: number) => {
+      const data = await this.page!.evaluate(async (mime: SupportedFormats = 'rgba', width: number, height: number) => {
         const video = document.querySelector<HTMLVideoElement>('video')!
         const canvas = document.querySelector<HTMLCanvasElement>('canvas')!
         canvas.getContext('2d')!.drawImage(video, 0, 0, canvas.width, canvas.height)
         if (mime === 'rgba') {
           const data = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height)
           //  console.log(data.data.buffer.byteLength);
-          return { width: data.width, height: data.height, data: (window as any).buffer.Buffer.from(data.data).toString('binary') as string}
+          return { width: data.width, height: data.height, data: (window as any).buffer.Buffer.from(data.data).toString('binary') as string }
           // await (window as any).postFrame(data.width, data.height, Array.from(data.data.values()))
         } else {
           const data = await (window as any).canvasToArrayBuffer(canvas, mime) // TODO: use https://github.com/feross/blob-to-buffer/blob/master/index.js
           if (data) {
             // console.log(data.length);
-          //  console.log(data.byteLength);
-            
-             return { width , height , data: (window as any).buffer.Buffer.from(data).toString('binary') as string }
+            //  console.log(data.byteLength);
+
+            return { width, height, data: (window as any).buffer.Buffer.from(data).toString('binary') as string }
             // await (window as any).postFrame(width, height, Array.from(new Uint8ClampedArray(data)))
           } else {
             // TODO: warning
@@ -161,18 +161,18 @@ export class VideoCapture extends CaptureBase {
         // return ''
       }, mime, this.o.width!, this.o.height!)
       // console.log('captureFrame 2');
-      
-    const imageData = {
-      width: data.width, 
-      height: data.height, 
-      data: Buffer.from(data.data, 'binary' )
-    }
 
-     await this.notifyListeners(imageData as any)
+      const imageData = {
+        width: data.width,
+        height: data.height,
+        data: Buffer.from(data.data, 'binary')
+      }
 
-    return imageData
-    } else{
-         throw new Error('Expected to be initialized')
+      await this.notifyListeners(imageData as any)
+
+      return imageData
+    } else {
+      throw new Error('Expected to be initialized')
 
     }
   }

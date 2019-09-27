@@ -1,7 +1,6 @@
 import { Server } from 'http'
-import { checkThrow, mergeRecursive, sleep, notSame, notSameNotFalsy } from 'misc-utils-of-mine-generic'
-import puppeteer, { LaunchOptions } from 'puppeteer'
-import { canvasToArrayBuffer, startRecording } from './browser'
+import { mergeRecursive, notSameNotFalsy, sleep } from 'misc-utils-of-mine-generic'
+import puppeteer from 'puppeteer'
 import { staticServer } from './staticServer'
 import { CaptureBaseOptions } from './types'
 
@@ -14,16 +13,16 @@ export class CaptureBase {
   constructor(protected o: CaptureBaseOptions = {}) {
   }
 
-  async stop(){
+  async stop() {
     await this.server!.close()
     await sleep(10)
     await this.browser!.close()
     await sleep(10)
   }
 
-async initialize() {
-  await this.launch()
-}
+  async initialize() {
+    await this.launch()
+  }
 
   protected async launch() {
     this.server = await staticServer(__dirname, this.o.port || 8080)
@@ -34,7 +33,7 @@ async initialize() {
       },
       {
         headless: true,
-        args: ['--disable-web-security', '--allow-file-access', '--use-fake-ui-for-media-stream', ...this.o.puppeteerOptions&& this.o.puppeteerOptions.args||[]].filter(notSameNotFalsy)
+        args: ['--disable-web-security', '--allow-file-access', '--use-fake-ui-for-media-stream', ...this.o.puppeteerOptions && this.o.puppeteerOptions.args || []].filter(notSameNotFalsy)
       }
     ))
     this.page = await this.browser.newPage()
@@ -45,7 +44,7 @@ async initialize() {
       console.log('log: ' + JSON.stringify(e.location()) + '\n' + e.text())
     })
     await this.page.goto(`http://127.0.0.1:${this.o.port || 8080}/index.html`)
-  
+
   }
 
 
