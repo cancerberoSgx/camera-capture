@@ -1,8 +1,9 @@
 import { Server } from 'http'
 import { checkThrow, mergeRecursive, sleep } from 'misc-utils-of-mine-generic'
 import puppeteer, { LaunchOptions } from 'puppeteer'
-import { canvasToArrayBuffer } from './browser'
+import { canvasToArrayBuffer, startRecording } from './browser'
 import { staticServer } from './staticServer'
+import { writeFileSync } from 'fs'
 
 type V = void | Promise<void>
 
@@ -112,7 +113,6 @@ export class VideoCapture {
       return
     }
     await this.launch()
-    await this.page!.exposeFunction('postFrame', this._postFrame)
     await this.startCamera()
     this.initialized = true
   }
@@ -137,13 +137,16 @@ export class VideoCapture {
       console.log('log: ' + JSON.stringify(e.location()) + '\n' + e.text())
     })
     await this.page.goto(`http://127.0.0.1:${this.o.port || 8080}/index.html`)
-    await this.page.evaluate(() => {
+    await this.page.evaluate((canvasToArrayBufferS, recordTestS) => {
       const d = document.createElement('div')
       d.innerHTML = `
   <video playsinline autoplay></video>
   <canvas></canvas>`
-      document.body.append(d)
-    })
+      document.body.append(d);
+      (window as any).canvasToArrayBuffer = eval(`(${canvasToArrayBufferS})`);
+      (window as any).startRecording = eval(`(${recordTestS})`)
+    }, canvasToArrayBuffer.toString(), startRecording.toString())
+    await this.page!.exposeFunction('postFrame', this._postFrame)
   }
 
   protected async captureFrame(mime: SupportedFormats = this.o.mime || 'rgba') {
@@ -203,9 +206,8 @@ export class VideoCapture {
       },
       ...this.o.constrains
     }
-    await this.page!.evaluate((width, height, constraints, canvasToArrayBufferS) => {
+    await this.page!.evaluate((width, height, constraints) => {
       return new Promise((resolve, reject) => {
-        (window as any).canvasToArrayBuffer = eval(`(${canvasToArrayBufferS})`)
         const video = document.querySelector<HTMLVideoElement>('video')!
         const canvas = document.querySelector<HTMLCanvasElement>('canvas')!
         canvas.width = width
@@ -223,7 +225,30 @@ export class VideoCapture {
             reject(error)
           })
       })
-    }, this.o.width || 480, this.o.height || 360, JSON.stringify(constraints), canvasToArrayBuffer.toString())
+    }, this.o.width || 480, this.o.height || 360, JSON.stringify(constraints))
   }
+
+  async startRecording(recordOptions = { mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }) {
+    await this.page!.evaluate(async (recordOptionsS) => {
+      const options = JSON.parse(recordOptionsS)
+      await (window as any).startRecording(options)
+    }, JSON.stringify(recordOptions))
+  }
+
+  async stopRecording() {
+    const data = await this.page!.evaluate(async () => {
+      return new Promise<number[]>(resolve => {
+        const blob = new Blob((window as any).recordedBlobs, { type: 'video/webm' })
+        const fr = new FileReader()
+        fr.readAsArrayBuffer(blob)
+        fr.onloadend = () => {
+          const data = fr.result as ArrayBuffer
+          resolve(Array.from(new Uint8ClampedArray(data)))
+        }
+      })
+    })
+    return new Uint8ClampedArray(data)
+  }
+
 }
 

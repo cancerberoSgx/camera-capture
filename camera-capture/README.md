@@ -1,14 +1,12 @@
-[![Github Actions Workflow](https://github.com/cancerberosgx/camera-capture/workflows/Node%20CI/badge.svg)](https://github.com/cancerberoSgx/camera-capture/actions)
-
 # camera-capture
 
-Portable Camera capture Node.js API for desktop Apps
+Portable Camera, audio, desktop capture Node.js library. 
 
 ## Contents
 
 <!-- toc -->
 
-- [What / WHy ?](#what--why-)
+- [What / Why ?](#what--why-)
 - [Install](#install)
 - [JavaScript API](#javascript-api)
   * [Managed frame read](#managed-frame-read)
@@ -24,7 +22,7 @@ Portable Camera capture Node.js API for desktop Apps
 
 <!-- tocstop -->
 
-## What / WHy ?
+## What / Why ?
 
 After searching for an easy to use portable library to access the webcam directly from node.js I didn't found a library that works in windows, macOs and linux, without native dependencies that users need ot manually install (or even so, they won't work). 
 
@@ -79,14 +77,22 @@ const f2 = await c.readFrame('image/jpeg')  // jpeg
 writeFileSync('tmp.jpg', f2.data)
 const f3 = await c.readFrame('image/webp')  // webp
 writeFileSync('tmp.webp', f3.data)
-const f4 = await c.readFrame('image/bmp')   // bmp
-writeFileSync('tmp.bmp', f4.data)
 const f5 = await c.readFrame('rgba')        // raw image data (as default)
 writeFileSync('tmp-8bit-200x200.rgba', f5.data)
-const f6 = await c.readFrame('image/gif')   // gif
-writeFileSync('tmp6.gif', f6.data)
 ```
 
+### Recording
+The following uses DOM MediaRecorder API to record video. Notice that it doesn't produce screenshots or store anything on the hard drive so the result is a excellent quality video but it could consume lots of memory on long recordings. If that's an issue perhaps it's better to store frame by frame to hard drive and then use a video assembler like ffmpeg / imagemagick. (in the roadmap):
+
+```ts
+import {VideoCapture} from 'camera-capture'
+const c = new VideoCapture({ port: 8082 })
+await c.initialize()
+await c.startRecording()
+await sleep(500)
+const data = await c.stopRecording()
+writeFileSync('tmp6.webm', data)
+```
 ## Command line
 
 TODO - TBD
@@ -115,40 +121,44 @@ I didn't found any library that provides an interface to capture webcam video so
  
 Observed behavior: 
 
-About, 30 frames per second (size  600x400)
+About, 30 frames per second (size  600x400, format: raw image data)
 
- * JavaScript API (managing the capturing loop) Done 
- * javaScript API (manual capture) Done
- * image encoded as jpeg, png, bmp, webp Done
- + just born - working APIs to read frames as ImageData.
-
+ * JavaScript API (managing the capturing loop)
+ * javaScript API (manual capture) 
+ * image encoded as jpeg, png, webp 
+ * camera video recording using DOM MediaRecorder
 ## Reference API
 
-* [VideoCapture class](../docs/modules/_capture_.md)
-* [VideoCapture options](../docs/interfaces/_capture_.captureoptions.md)
+* [Capture options](https://github.com/cancerberoSgx/camera-capture/blob/master/docs/interfaces/_capture_.captureoptions.md)
+* [Capture class](https://github.com/cancerberoSgx/camera-capture/blob/master/docs/modules/_capture_.md)
  
 ## TODO / Road map
-- [ ] check c.addFrameListener() and encoded images
+- [ ] check c.addFrameListener() with encoded images
 - [ ] investigate why/how to pass the buffer / array buffer view  directly without transforming it to number[] / and array buffer views
 - [ ] test if toDataUrl is faster than toBlob
 - [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
 - [ ] CLI
-- [w] real world example: native app
-- [x] encode in browser supported formats (png, jpg)
+- [ ] performance tests (fps raw image data and encoded imgs)
 - [ ] do we really need to serialize constrains ? 
+- [ ] video recording formats other than webm?
+- [ ] video recording constrints - size - 
+- [ ] audio recording only API
+- [ ] record desktop ? possible ?
+- [ ] desktop screenshot only API
+- [ ] browser screenshot only API
+- [ ] webcam screenshot only API
+- [ ] geo location (get the coords) ? (need https?)
+- [ ] change video size dynamically ?
+- [x] real world example: native app
+- [x] encode in browser supported formats (png, jpg)
 - [x] c.readFrame() users read manually instead listener - loop controlled by users.
 - [x] listener API managed  loop
 - [x] API docs
 - [x] add api docs descriptions to class, options and
+- [x] record capture using dom api (output is mp4/avi video)
 
 ### low priority
-- [ ] research how fast/slow is painting canvas pixel by pizel form imagedata than showImage in node-gui
+- [ ] research how fast/slow is painting canvas pixel by pixel from image data than showImage in node-gui
 - [ ] TODO: support fps control like in opencv
-- [ ] change size dynamically ?
-- [ ] record capture using dom api (output is mp4/avi video)
-- [ ] record desktop ? possible ?
-- [ ] record web page - browser / page screenshot utility
-- [ ]  sound/ audio ? 
-- [ ]  geo location (get the coords) ? (need https?)
 - [ ]
