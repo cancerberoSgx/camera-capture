@@ -15,26 +15,9 @@ export class VideoCapture extends CaptureBase {
   constructor(protected o: CaptureOptions = {}) {
     super(o)
     this.captureLoop = this.captureLoop.bind(this)
-    // this._postFrame = this._postFrame.bind(this)
     this.o.width = this.o.width || 480
     this.o.height = this.o.height || 320
   }
-
-  // async readFrame(mime: SupportedFormats = this.o.mime || 'rgba') {
-  //   if (this.initialized) {
-
-  //   // this.lastFrame = imageData
-
-  //    const imageData =  await this.captureFrame(mime)
-  //     // await sleep(0)
-  //   await this.notifyListeners(imageData as any)
-  //     // return this.lastFrame!
-  //   return imageData
-  //   }
-  //   else {
-  //     throw new Error('Expected to be initialized')
-  //   }
-  // }
 
   addFrameListener(listener: Listener): void {
     this.listeners.push(listener)
@@ -104,9 +87,7 @@ export class VideoCapture extends CaptureBase {
       (window as any).startRecording = eval(`(${recordTestS})`);
       (window as any).blobToArrayBuffer = eval(`(${blobToArrayBuffer})`)
     }, canvasToArrayBuffer.toString(), startRecording.toString(), blobToArrayBuffer.toString())
-    // await this.page!.exposeFunction('postFrame', this._postFrame)
     await this.startCamera()
-    // console.log('initialize');
     this.initialized = true
   }
 
@@ -142,26 +123,16 @@ export class VideoCapture extends CaptureBase {
         canvas.getContext('2d')!.drawImage(video, 0, 0, canvas.width, canvas.height)
         if (mime === 'rgba') {
           const data = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height)
-          //  console.log(data.data.buffer.byteLength);
           return { width: data.width, height: data.height, data: (window as any).buffer.Buffer.from(data.data).toString('binary') as string }
-          // await (window as any).postFrame(data.width, data.height, Array.from(data.data.values()))
         } else {
-          const data = await (window as any).canvasToArrayBuffer(canvas, mime) // TODO: use https://github.com/feross/blob-to-buffer/blob/master/index.js
+          const data = await (window as any).canvasToArrayBuffer(canvas, mime) 
           if (data) {
-            // console.log(data.length);
-            //  console.log(data.byteLength);
-
             return { width, height, data: (window as any).buffer.Buffer.from(data).toString('binary') as string }
-            // await (window as any).postFrame(width, height, Array.from(new Uint8ClampedArray(data)))
           } else {
-            // TODO: warning
             throw new Error('Should not happen 1234')
           }
         }
-        // return ''
       }, mime, this.o.width!, this.o.height!)
-      // console.log('captureFrame 2');
-
       const imageData = {
         width: data.width,
         height: data.height,
@@ -177,19 +148,8 @@ export class VideoCapture extends CaptureBase {
     }
   }
 
-
-  // protected async _postFrame(width: number, height: number, data: number[]) {
-  //   const imageData = {
-  //     // TODO: investigate why/how to pass the buffer / vide directly without transforming it to number[]
-  //     data: new Uint8ClampedArray(data),
-  //     width,
-  //     height
-  //   }
-  //   this.notifyListeners(imageData)
-  //   this.lastFrame = imageData //HEADS UP - readFrame needs this to pass frames to the user 
-  // }
-
   protected counter = 0
+  
   protected async captureLoop() {
     if (!this.initialized || this.o.shots && this.counter >= this.o.shots) {
       return

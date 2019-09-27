@@ -49,3 +49,5 @@ ava.config-js.js
 apps
 .github
 tmp-browser-test-testUmdWasmLocation
+camera-capture-demo-v*
+probes

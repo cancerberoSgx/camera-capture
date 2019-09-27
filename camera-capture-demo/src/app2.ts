@@ -60,7 +60,6 @@ async function main() {
   canvas.setStyle({ flex: 1, width: '100%', height: '100%', flexDirection: 'row', flexGrow: 1 })
   c2.addChildView(canvas)
   canvas.onDraw = (self, painter, dirty) => {
-    // const img = Image.createFromBuffer(frameBuffer, 1)
     painter.drawImageFromRect(img, dirty, dirty)
   }
   let counter = 0
@@ -70,11 +69,10 @@ async function main() {
   }, 1000)
 
   const capture = new VideoCapture({
-    width: 800, height: 600, port: 8081, mime: 'image/jpeg', constrains: {audio: false}
+    debug: true, width: 480, height: 360, mkdirServed: true, port: 8081, mime: 'image/jpeg', constrains: {audio: false, video: {aspectRatio: 1, width: 480, height: 360}}
   })
+  
   capture.addFrameListener(async frame => {
-    // const i = new Jimp(frame)
-    //  frameBuffer = await i.getBufferAsync('image/jpeg')
     img = Image.createFromBuffer(frame.data, 1)
     canvas.schedulePaint()
     counter++

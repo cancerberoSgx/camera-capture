@@ -3,6 +3,9 @@ import { mergeRecursive, notSameNotFalsy, sleep } from 'misc-utils-of-mine-gener
 import puppeteer from 'puppeteer'
 import { staticServer } from './staticServer'
 import { CaptureBaseOptions } from './types'
+import { tmpdir } from 'os'
+import { join } from 'path'
+import { existsSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from 'fs'
 
 export class CaptureBase {
 
@@ -25,17 +28,24 @@ export class CaptureBase {
   }
 
   protected async launch() {
-    this.server = await staticServer(__dirname, this.o.port || 8080)
-    this.browser = await puppeteer.launch(mergeRecursive(
-      {
+    const dir = this.o.mkdirServed===true?join(tmpdir(), 'camera-capture') : typeof this.o.mkdirServed==='string' ? this.o.mkdirServed : __dirname
+    if(this.o.mkdirServed && !existsSync(join(dir, 'index.html'))){
+      mkdirSync(dir, {recursive: true})
+      writeFileSync(join(dir, 'index.html'), readFileSync(realpathSync(join(__dirname, 'index.html'))))
+    }
+    this.o.debug && console.log('Serving index.html on port '+(this.o.port || 8080)+'. Folder: "'+dir+'"')
+    this.server = await staticServer(dir, this.o.port || 8080)
+    const pOptions = mergeRecursive(      {
         ...{},
         ...this.o.puppeteerOptions
       },
       {
         headless: true,
         args: ['--disable-web-security', '--allow-file-access', '--use-fake-ui-for-media-stream', ...this.o.puppeteerOptions && this.o.puppeteerOptions.args || []].filter(notSameNotFalsy)
-      }
-    ))
+      }    )
+    this.o.debug && console.log(`Puppeteer options: ${JSON.stringify(pOptions)}`)
+    
+    this.browser = await puppeteer.launch(pOptions)
     this.page = await this.browser.newPage()
     this.page.on('console', e => {
       if (e.type() === 'error') {

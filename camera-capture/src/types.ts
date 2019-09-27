@@ -6,12 +6,16 @@ export interface CaptureBaseOptions {
    */
   port?: number
   puppeteerOptions?: LaunchOptions
+  /**
+   * If given, a folder with that path will be created (or if true is given at $HOME/.camera-capture/static) and a index.html file will be copied there so it can be served as static web page for the headless browser to use. This is not often necessary, but particularly when packaging the client package as a desktop application with asar or yackage .
+   */
+  mkdirServed?: string|boolean
+  debug?: boolean;
 }
 
 export type SupportedFormats = 'image/png' | 'image/jpeg' | 'image/webp' | 'rgba'
 
 export interface CaptureOptions extends CaptureBaseOptions {
-  debug?: boolean;
   constrains?: MediaStreamConstraints;
   /**
    * TODO. Make sure that at least given number of milliseconds pass between frames

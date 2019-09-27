@@ -6,7 +6,7 @@
   "main": "dist/src/app2.js",
   "scripts": {
     "postinstall": "npx yackage install",
-    "clean": "rm -rf tmp* dist test-browser-outdir working_tmp out-* ",
+    "clean": "rm -rf tmp* dist test-browser-outdir working_tmp out-* camera-capture-demo-v*",
     "build": "npm run clean && npx tsc && cp src/n.png dist/src ",
     "start": "npm run build && yode/yode-v0.4.2-darwin-x64/yode dist/src/app2",
     "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "camera-capture": "0.0.8",
+    "camera-capture": "file:../camera-capture",
     "gui": "github:cancerberosgx/node-gui",
     "misc-utils-of-mine-generic": "^0.2.34",
     "puppeteer": "^1.20.0"
