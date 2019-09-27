@@ -127,7 +127,8 @@ About, 30 frames per second (size  600x400)
  
 ## TODO / Road map
 - [ ] check c.addFrameListener() and encoded images
-- [ ] investigate why/how to pass the buffer / vide directly without transforming it to number[] / and array buffer views
+- [ ] investigate why/how to pass the buffer / array buffer view  directly without transforming it to number[] / and array buffer views
+- [ ] test if toDataUrl is faster than toBlob
 - [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
 - [ ] CLI
@@ -140,6 +141,8 @@ About, 30 frames per second (size  600x400)
 - [x] add api docs descriptions to class, options and
 
 ### low priority
+- [ ] research how fast/slow is painting canvas pixel by pizel form imagedata than showImage in node-gui
+- [ ] TODO: support fps control like in opencv
 - [ ] change size dynamically ?
 - [ ] record capture using dom api (output is mp4/avi video)
 - [ ] record desktop ? possible ?

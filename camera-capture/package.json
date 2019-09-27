@@ -1,6 +1,6 @@
 {
   "name": "camera-capture",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Super portable, fast camera capture library for node.js (server). TypeScript/JavaScript easy to use APIs. Uses puppeteer headless browser to capture webcam video (audio/desktop, recording, etc) and stream back to node.js frame by frame in plain image data for optimal speed or optionally in encoded formats like jpeg, png, bmp, etc",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -10,8 +10,8 @@
     "test-js": "npm run build && cp src/index.html dist/src/index.html && npx ava --serial --concurrency 1 --config ava.config-js.js",
     "clean": "rm -rf tmp* dist test-browser-outdir working_tmp ../docs",
     "build": "npm run clean && npx tsc  ",
-    "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" \"../camera-capture-demo/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
-    "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" \"../camera-capture-demo/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
+    "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
+    "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
     "lint": "npm run organizeImports && npm run format",
     "docs": "npm run docs-readme-toc && npm run docs-api",
     "docs-api": "rm -rf ../docs && typedoc  --ignoreCompilerErrors --theme markdown --out ../docs --readme none --excludeNotExported src/index.ts ",

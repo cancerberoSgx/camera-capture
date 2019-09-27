@@ -12,6 +12,6 @@
     "rootDir": "."
   },
   "include": [
-    "src", "test", "../camera-capture-demo/src/probes" 
+    "src", "test"
   ]
 }

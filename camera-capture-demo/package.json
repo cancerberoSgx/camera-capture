@@ -11,11 +11,11 @@
     "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
     "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
     "lint": "npm run organizeImports && npm run format",
-    "all": "npm run clean && npm run lint && npm run build && npm run test && npm run test-js && npm run docs"
+    "all": "npm run clean && npm run lint && npm run build"
   },
   "license": "MIT",
   "dependencies": {
-    "camera-capture": "0.0.5",
+    "camera-capture": "file:../camera-capture",
     "gui": "github:cancerberosgx/node-gui",
     "jimp": "^0.8.4",
     "misc-utils-of-mine-generic": "^0.2.34",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.7.5",
+    "@types/puppeteer": "^1.19.1",
     "ts-node": "^8.4.1",
     "ts-refactor": "0.0.9",
     "typescript": "^3.6.3",

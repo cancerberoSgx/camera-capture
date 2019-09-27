@@ -19,7 +19,7 @@ export interface CaptureOptions {
   mime?: SupportedFormats
 }
 
-type Listener = (data: ImageData) => V
+export type Listener = (data: ImageData) => V
 
 export interface ImageData {
   width: number
@@ -44,7 +44,6 @@ export class VideoCapture {
     this.o.height = this.o.height || 300
   }
 
-
   async readFrame(mime: SupportedFormats = this.o.mime || 'rgba') {
     if (this.initialized) {
       await this.captureFrame(mime)
@@ -57,21 +56,28 @@ export class VideoCapture {
     }
   }
 
-
   addFrameListener(listener: Listener): void {
     this.listeners.push(listener)
   }
 
   /**
-   * Given callback can be called to stop video capture (turns camera off)
    */
-  async stop() {
-    checkThrow(this.server && this.browser, 'Expected started before calling stop()')
-    //TODO: stop camera
+  async stopCamera() {
+    checkThrow(this.server && this.browser && this.page, 'Expected started before calling stop()')
     this.initialized = false
     this.capturing = false
+    await this.page!.evaluate(() => ((window as any).videoStream as MediaStream) && ((window as any).videoStream as MediaStream).getTracks().forEach(t => t.stop()))
+  }
+
+  /**
+    */
+  async stop() {
+    await this.stopCamera()
+    await sleep(100)
     await this.server!.close()
+    await sleep(100)
     await this.browser!.close()
+    await sleep(100)
   }
 
   async pause() {
@@ -87,7 +93,7 @@ export class VideoCapture {
   /**
    * Starts capture. It resolved when the camera starts capturing or rejects if any error.
    */
-  async  start() {
+  async start() {
     if (this.capturing) {
       throw new Error('Already capturing')
     }
@@ -107,7 +113,7 @@ export class VideoCapture {
     }
     await this.launch()
     await this.page!.exposeFunction('postFrame', this._postFrame)
-    await this.initializeMedia()
+    await this.startCamera()
     this.initialized = true
   }
 
@@ -182,16 +188,14 @@ export class VideoCapture {
   protected async captureLoop() {
     if (this.capturing) {
       await this.captureFrame()
-      await sleep(1)
-      //TODO: support fps like opencv
+      await sleep(0)
     } else {
-      // TODO: something here ?
       await sleep(100)
     }
     await this.captureLoop()
   }
 
-  protected async initializeMedia() {
+  async startCamera() {
     const constraints = {
       ...{
         audio: false,
@@ -210,8 +214,8 @@ export class VideoCapture {
         const parsedConstraints = JSON.parse(constraints) as MediaStreamConstraints
         navigator.mediaDevices.getUserMedia(parsedConstraints)
           .then(stream => {
-            video.onerror = reject
-            video.srcObject = stream
+            video.onerror = reject;
+            (window as any).videoStream = video.srcObject = stream
             video.onplay = (() => setTimeout(() => resolve(), 200))
           })
           .catch(error => {

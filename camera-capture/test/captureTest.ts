@@ -43,7 +43,7 @@ test.serial('users requesting frames instead notifications', async t => {
   t.deepEqual([f.width, f.height, f.data.length], [100, 100, 40000])
   t.deepEqual([f2.width, f2.height, f2.data.length], [100, 100, 40000])
   t.true(f !== f2)
-  await c.stop()
+  await c.stopCamera()
 
 })
 
@@ -67,7 +67,7 @@ test.serial('encoded frames - default format given in options', async t => {
   writeFileSync('tmp.webp', f3.data)
   t.deepEqual(fileType(readFileSync('tmp.webp')), { ext: 'webp', mime: 'image/webp' })
 
-  await c.stop()
+  await c.stopCamera()
 })
 
 test.todo('pause, resume, stop')
