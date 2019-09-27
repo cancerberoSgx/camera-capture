@@ -47,8 +47,12 @@
     "video",
     "capture",
     "record",
-    "screenshot",
+    "camera",
     "audio",
+    "video record",
+    "camera capture",
+    "audio capture",
+    "screenshot",
     "desktop"
   ],
   "author": {

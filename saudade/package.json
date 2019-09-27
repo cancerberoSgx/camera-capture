@@ -1,0 +1,55 @@
+{
+  "name": "saudade",
+  "version": "0.0.1",
+  "description": "Command line interface for camera-capture",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "bin": "bin/saudade.js",
+  "scripts": {
+    "clean": "rm -rf dist docs",
+    "test": "npm run build && npx ava --serial --concurrency 1 --config ava.config.js",
+    "test-js": "npm run build && npx ava --serial --concurrency 1 --config ava.config-js.js",
+    "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
+    "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
+    "lint": " npm run organizeImports && npm run format",
+    "prepare": " npm run build ",
+    "build": "npm run clean && npx tsc",
+    "all": "npm run clean &&  npm run lint && npm run build && npm test && npm run test-js",
+    "all-publish": "npm run all && git commit -a -m 'version patch' && npm version patch && npm publish"
+  },
+  "keywords": [
+    "typescript",
+    "camera",
+    "audio",
+    "video record",
+    "camera capture",
+    "audio capture",
+    "capture",
+    "node.js",
+    "Command line"
+  ],
+  "author": "Sebastián Gurin",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.7.8",
+    "@types/shelljs": "^0.8.5",
+    "ava": "^2.4.0",
+    "shelljs": "^0.8.3",
+    "ts-node": "^8.4.1",
+    "ts-refactor": "0.0.9",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "camera-capture": "file:../camera-capture",
+    "minimist": "^1.2.0",
+    "misc-utils-of-mine-generic": "^0.2.34",
+    "puppeteer": "^1.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cancerberoSgx/camera-capture.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cancerberoSgx/camera-capture"
+  }
+}
