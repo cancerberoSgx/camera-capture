@@ -125,7 +125,7 @@ export class VideoCapture extends CaptureBase {
           const data = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height)
           return { width: data.width, height: data.height, data: (window as any).buffer.Buffer.from(data.data).toString('binary') as string }
         } else {
-          const data = await (window as any).canvasToArrayBuffer(canvas, mime) 
+          const data = await (window as any).canvasToArrayBuffer(canvas, mime)
           if (data) {
             return { width, height, data: (window as any).buffer.Buffer.from(data).toString('binary') as string }
           } else {
@@ -149,7 +149,7 @@ export class VideoCapture extends CaptureBase {
   }
 
   protected counter = 0
-  
+
   protected async captureLoop() {
     if (!this.initialized || this.o.shots && this.counter >= this.o.shots) {
       return

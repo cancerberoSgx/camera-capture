@@ -9,7 +9,7 @@ export interface CaptureBaseOptions {
   /**
    * If given, a folder with that path will be created (or if true is given at $HOME/.camera-capture/static) and a index.html file will be copied there so it can be served as static web page for the headless browser to use. This is not often necessary, but particularly when packaging the client package as a desktop application with asar or yackage .
    */
-  mkdirServed?: string|boolean
+  mkdirServed?: string | boolean
   debug?: boolean;
 }
 
