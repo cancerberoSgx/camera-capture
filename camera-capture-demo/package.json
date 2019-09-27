@@ -3,29 +3,31 @@
   "version": "0.0.3",
   "private": true,
   "description": "Demo desktop app for camera-capture",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/src/app2.js",
   "scripts": {
     "postinstall": "npx yackage install",
-    "clean": "rm -rf tmp* dist test-browser-outdir working_tmp",
+    "clean": "rm -rf tmp* dist test-browser-outdir working_tmp out-* ",
     "build": "npm run clean && npx tsc && cp src/n.png dist/src ",
     "start": "npm run build && yode/yode-v0.4.2-darwin-x64/yode dist/src/app2",
     "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
     "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
     "lint": "npm run organizeImports && npm run format",
-    "all": "npm run clean && npm run lint && npm run build"
+    "all": "npm run clean && npm run lint && npm run build",
+    "package-mac": "  npm run build && npx yackage --app-dir $PWD  dist  out-mac ",
+    "package-linux": "  npm run build  && npx yackage --app-dir $PWD   dist  out-linux   ",
+    "package-win": "  npm run build  && npx yackage --platform win --arch x64 --app-dir $PWD   dist  out-win   "
   },
   "license": "MIT",
   "dependencies": {
-    "camera-capture": "file:../camera-capture",
+    "camera-capture": "0.0.8",
     "gui": "github:cancerberosgx/node-gui",
-    "jimp": "^0.8.4",
     "misc-utils-of-mine-generic": "^0.2.34",
     "puppeteer": "^1.20.0"
   },
   "devDependencies": {
     "@types/node": "^12.7.5",
     "@types/puppeteer": "^1.19.1",
+    "asar": "^2.0.1",
     "ts-node": "^8.4.1",
     "ts-refactor": "0.0.9",
     "typescript": "^3.6.3",

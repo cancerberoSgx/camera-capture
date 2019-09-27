@@ -15,3 +15,5 @@ apps/font2bitmap
 apps/sample-app
 yode*
 .DS_Store
+*.zip
+out-*
