@@ -1,0 +1,1 @@
+Please read [the project's README.md](camera-capture/README.md)
