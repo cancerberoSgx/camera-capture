@@ -6,7 +6,7 @@ import { staticServer } from './staticServer'
 
 type V = void | Promise<void>
 
-export type SupportedFormats = 'image/png' | 'image/jpeg' | 'image/webp' | 'image/bmp' | 'image/gif' | 'rgba'
+export type SupportedFormats = 'image/png' | 'image/jpeg' | 'image/webp' | 'rgba'
 
 export interface CaptureOptions {
   port?: number

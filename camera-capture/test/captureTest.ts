@@ -1,7 +1,6 @@
 import test from 'ava'
 import fileType from 'file-type'
 import { readFileSync, writeFileSync } from 'fs'
-import { sleep } from 'misc-utils-of-mine-generic'
 import { VideoCapture } from '../src/capture'
 
 test.serial.cb('addFrameListener single ', t => {
@@ -55,23 +54,18 @@ test.serial('encoded frames - default format given in options', async t => {
   await c.initialize()
   const f = await c.readFrame()
   t.deepEqual(fileType(Buffer.from(f.data)), { ext: 'png', mime: 'image/png' })
-  writeFileSync('tmp.png',f.data)
+  writeFileSync('tmp.png', f.data)
   t.deepEqual(fileType(readFileSync('tmp.png')), { ext: 'png', mime: 'image/png' })
 
   const f2 = await c.readFrame('image/jpeg')
   t.deepEqual(fileType(Buffer.from(f2.data)), { ext: 'jpg', mime: 'image/jpeg' })
-  writeFileSync('tmp.jpg',f2.data)
+  writeFileSync('tmp.jpg', f2.data)
   t.deepEqual(fileType(readFileSync('tmp.jpg')), { ext: 'jpg', mime: 'image/jpeg' })
 
   const f3 = await c.readFrame('image/webp')
   t.deepEqual(fileType(f3.data.buffer), { ext: 'webp', mime: 'image/webp' })
-  writeFileSync('tmp.webp',f3.data)
+  writeFileSync('tmp.webp', f3.data)
   t.deepEqual(fileType(readFileSync('tmp.webp')), { ext: 'webp', mime: 'image/webp' })
-
-    const f4 = await c.readFrame('image/gif')
-  t.deepEqual(fileType(f4.data.buffer), { ext: 'gif', mime: 'image/gif' })
-  writeFileSync('tmp.gif',f4.data)
-  t.deepEqual(fileType(readFileSync('tmp.gif')), { ext: 'gif', mime: 'image/gif' })
 
   await c.stop()
 })
