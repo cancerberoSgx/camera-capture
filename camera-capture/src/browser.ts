@@ -24,5 +24,5 @@ export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'i
     else {
       reject(new Error('Expected toBlob() to be defined'));
     }
-  }, mime, quality));
+  }, mime, quality))
 }

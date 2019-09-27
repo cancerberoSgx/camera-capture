@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "camera-capture": "file:../camera-capture",
+    "camera-capture": "0.0.5",
     "gui": "github:cancerberosgx/node-gui",
     "jimp": "^0.8.4",
     "misc-utils-of-mine-generic": "^0.2.34",
@@ -36,9 +36,9 @@
   "homepage": "https://www.npmjs.com/package/camera-capture",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cancerberoSgx/magica.git"
+    "url": "https://github.com/cancerberoSgx/camera-capture.git"
   },
   "bugs": {
-    "url": "https://github.com/cancerberoSgx/magica"
+    "url": "https://github.com/cancerberoSgx/camera-capture"
   }
 }

@@ -1,20 +1,21 @@
 # camera-capture
 
+Portable Camera capture Node.js API for desktop Apps
+
 ## Contents
 
 <!-- toc -->
 
 - [What / WHy ?](#what--why-)
-- [Summary](#summary)
-- [Playground & demos](#playground--demos)
-- [Summary](#summary-1)
-- [Design summary](#design-summary)
-- [Status](#status)
 - [Install](#install)
 - [JavaScript API](#javascript-api)
   * [Managed frame read](#managed-frame-read)
   * [Manual frame read](#manual-frame-read)
+  * [Encoded Frames](#encoded-frames)
 - [Command line](#command-line)
+- [Summary](#summary)
+  * [Design summary](#design-summary)
+  * [Status](#status)
 - [Reference API](#reference-api)
 - [TODO / Road map](#todo--road-map)
   * [low priority](#low-priority)
@@ -68,15 +69,20 @@ const f2 = await c.readFrame()  // take another shot
 
 ```js
 import {VideoCapture} from 'camera-capture'
-const c = new VideoCapture({ mime: 'image/png'})
+const c = new VideoCapture({ width: 200, height: 200,  mime: 'image/png'})
 await c.initialize()
-const f = await c.readFrame() // PNG as configured
+const f = await c.readFrame()               // PNG as configured
 writeFileSync('tmp.png', f.data)
-const f2 = await c.readFrame('image/jpeg')  //jpeg
-writeFileSync('tmp.jpg', f.data)
-const f3 = await c.readFrame('image/webp')  //webp
-writeFileSync('tmp.webp', f.data)
-const f4 = await c.readFrame('rgba')  //raw image data (as default)
+const f2 = await c.readFrame('image/jpeg')  // jpeg
+writeFileSync('tmp.jpg', f2.data)
+const f3 = await c.readFrame('image/webp')  // webp
+writeFileSync('tmp.webp', f3.data)
+const f4 = await c.readFrame('image/bmp')   // bmp
+writeFileSync('tmp.bmp', f4.data)
+const f5 = await c.readFrame('rgba')        // raw image data (as default)
+writeFileSync('tmp-8bit-200x200.rgba', f5.data)
+const f6 = await c.readFrame('image/gif')   // gif
+writeFileSync('tmp6.gif', f6.data)
 ```
 
 ## Command line
@@ -116,16 +122,17 @@ About, 30 frames per second (size  600x400)
 
 ## Reference API
 
-* (VideoCapture class)[../docs/modules/_capture_.md]
-* (VideoCapture pptions)[../docs/interfaces/_capture_.captureoptions.md]
+* [VideoCapture class](../docs/modules/_capture_.md)
+* [VideoCapture options](../docs/interfaces/_capture_.captureoptions.md)
  
 ## TODO / Road map
-- [ ] investigate why/how to pass the buffer / vide directly without transforming it to number[]
+- [ ] check c.addFrameListener() and encoded images
+- [ ] investigate why/how to pass the buffer / vide directly without transforming it to number[] / and array buffer views
 - [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
 - [ ] CLI
-- [ ] real world example: native app
-- [ ] encode in browser supported formats (png, jpg)
+- [w] real world example: native app
+- [x] encode in browser supported formats (png, jpg)
 - [ ] do we really need to serialize constrains ? 
 - [x] c.readFrame() users read manually instead listener - loop controlled by users.
 - [x] listener API managed  loop

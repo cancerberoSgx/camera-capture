@@ -1,14 +1,13 @@
 import test from 'ava'
-import { VideoCapture } from '../src/capture'
 import fileType from 'file-type'
-import { writeFileSync, readFileSync } from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import { sleep } from 'misc-utils-of-mine-generic'
+import { VideoCapture } from '../src/capture'
 
 test.serial.cb('addFrameListener single ', t => {
   const c = new VideoCapture({ port: 8082, width: 480, height: 360 })
   c.addFrameListener(frame => {
     t.deepEqual([frame.width, frame.height, frame.data.length], [480, 360, 691200])
-    // c.stop()
     t.end()
   })
   c.start()
@@ -25,14 +24,12 @@ test.serial.cb('addFrameListener multiple ', t => {
     i++
     t.deepEqual([frame.width, frame.height, frame.data.length], [200, 200, 160000])
     if (i > N) {
-      console.log(`${N} frames in ` + (Date.now() - t0))
-      // c.stop().then(
-        t.end()
-        // )
+      // console.log(`${N} frames in ` + (Date.now() - t0))
+      t.end()
     }
   })
-  c.initialize().then(() => {    
-    t0 = Date.now()  
+  c.initialize().then(() => {
+    // t0 = Date.now()
     c.start()
   })
 })
@@ -51,29 +48,30 @@ test.serial('users requesting frames instead notifications', async t => {
 
 })
 
-test.serial.only('encoded frames - default format given in options', async t => {
+test.serial('encoded frames - default format given in options', async t => {
   const c = new VideoCapture({
     width: 480, height: 320, port: 8084, mime: 'image/png'
   })
-
   await c.initialize()
-   await c.readFrame()
-    await c.readFrame()
-    await sleep(500)
   const f = await c.readFrame()
   t.deepEqual(fileType(Buffer.from(f.data)), { ext: 'png', mime: 'image/png' })
-  writeFileSync('tmp.png', Buffer.from(f.data.buffer))
+  writeFileSync('tmp.png',f.data)
   t.deepEqual(fileType(readFileSync('tmp.png')), { ext: 'png', mime: 'image/png' })
 
   const f2 = await c.readFrame('image/jpeg')
   t.deepEqual(fileType(Buffer.from(f2.data)), { ext: 'jpg', mime: 'image/jpeg' })
-  writeFileSync('tmp.jpg', Buffer.from(f2.data.buffer))
+  writeFileSync('tmp.jpg',f2.data)
   t.deepEqual(fileType(readFileSync('tmp.jpg')), { ext: 'jpg', mime: 'image/jpeg' })
 
   const f3 = await c.readFrame('image/webp')
   t.deepEqual(fileType(f3.data.buffer), { ext: 'webp', mime: 'image/webp' })
-  writeFileSync('tmp.webp', Buffer.from(f3.data.buffer))
+  writeFileSync('tmp.webp',f3.data)
   t.deepEqual(fileType(readFileSync('tmp.webp')), { ext: 'webp', mime: 'image/webp' })
+
+    const f4 = await c.readFrame('image/gif')
+  t.deepEqual(fileType(f4.data.buffer), { ext: 'gif', mime: 'image/gif' })
+  writeFileSync('tmp.gif',f4.data)
+  t.deepEqual(fileType(readFileSync('tmp.gif')), { ext: 'gif', mime: 'image/gif' })
 
   await c.stop()
 })
