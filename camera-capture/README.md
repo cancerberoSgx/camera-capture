@@ -1,3 +1,5 @@
+[![Github Actions Workflow](https://github.com/cancerberosgx/camera-capture/workflows/Node%20CI/badge.svg)](https://github.com/cancerberoSgx/camera-capture/actions)
+
 # camera-capture
 
 Portable Camera capture Node.js API for desktop Apps
