@@ -1,5 +1,3 @@
-import { TODO } from 'misc-utils-of-mine-generic'
-
 // This utilities are serialized (function.prototype.toString()) and evaluated in the browser's context so they must remain independent
 
 /**
@@ -7,21 +5,22 @@ import { TODO } from 'misc-utils-of-mine-generic'
  * @param quality A Number between 0 and 1 indicating image quality if the requested type is image/jpeg or image/webp. If this argument is anything else, the default value for image quality is used. Other arguments are ignored.
  */
 export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'image/png', quality = 1): Promise<ArrayBuffer> {
-  return new Promise((resolve, reject) => canvas.toBlob(async (d) => {
-    if (d) {
-      const r = new FileReader();
-      r.addEventListener('loadend', e => {
-        const ab = r.result;
-        if (ab) {
-          resolve(ab as ArrayBuffer);
-        }
-        else {
-          reject(new Error('Expected FileReader result'));
-        }
-      }); r.addEventListener('error', e => {
-        reject(e)
-      });
-      r.readAsArrayBuffer(d);
+  return new Promise((resolve, reject) => canvas.toBlob(async blob => {
+    if (blob) {
+    resolve(await  (window as any).blobToArrayBuffer(blob))
+      // const r = new FileReader();
+      // r.addEventListener('loadend', e => {
+      //   const ab = r.result;
+      //   if (ab) {
+      //     resolve(ab as ArrayBuffer);
+      //   }
+      //   else {
+      //     reject(new Error('Expected FileReader result'));
+      //   }
+      // }); r.addEventListener('error', e => {
+      //   reject(e)
+      // });
+      // r.readAsArrayBuffer(d);
     }
     else {
       reject(new Error('Expected toBlob() to be defined'));
@@ -30,36 +29,32 @@ export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'i
 }
 
 
-
-
-interface MediaRecorderOptions {
-
+export function blobToArrayBuffer (blob: Blob) {
+  // if (typeof cb !== 'function') {
+  //   throw new Error('second argument must be a function')
+  // }
+return new Promise((resolve, reject)=>{
+  const reader = new FileReader()
+  // if (typeof Blob === 'undefined' || !(blob instanceof Blob)) {
+  //   reject(new Error('first argument must be a Blob'))
+  // }
+  function onLoadEnd (e: any) {
+    reader.removeEventListener('loadend', onLoadEnd, false)
+    if (e.error) {
+      reject(e.error)
+    }
+    // else resolve((window as any).buffer.Buffer.from(reader.result))
+    else if(reader.result){
+      resolve(reader.result as ArrayBuffer)
+    }else {
+     reject(new Error('Expected FileReader result'));
+    }
+  }
+  reader.addEventListener('loadend', onLoadEnd, false)
+  reader.readAsArrayBuffer(blob)
+})
 }
 
-type RecordingState = TODO
-
-type EventHandler = TODO
-
-declare class MediaRecorder {
-  constructor(stream: MediaStream, options: MediaRecorderOptions)
-  readonly stream: MediaStream;
-  readonly mimeType: string;
-  readonly state: RecordingState;
-  onstart: EventHandler;
-  onstop: EventHandler;
-  ondataavailable: (e: { data: Blob }) => void;
-  onpause: EventHandler;
-  onresume: EventHandler;
-  onerror: EventHandler;
-  readonly videoBitsPerSecond: number;
-  readonly audioBitsPerSecond: number;
-  start(timeslice: number): void
-  stop(): void;
-  pause(): void;
-  resume(): void;
-  requestData(): void;
-  static isTypeSupported(type: string): boolean;
-}
 
 export function startRecording(options = { mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }) {
   return new Promise(resolve => {
@@ -96,4 +91,37 @@ export function startRecording(options = { mimeType: 'video/webm;codecs=vp8', wi
       return
     }
   })
+}
+// DOM MediaRecorder missing types
+import { TODO } from 'misc-utils-of-mine-generic'
+
+export type MediaRecorderOptions = TODO
+
+export type RecordingState = TODO
+
+export type EventHandler = TODO
+
+export type OnDataAvailableListener = (e: {
+  data: Blob;
+}) => void
+
+export declare class MediaRecorder {
+  constructor(stream: MediaStream, options: MediaRecorderOptions);
+  readonly stream: MediaStream;
+  readonly mimeType: string;
+  readonly state: RecordingState;
+  onstart: EventHandler;
+  onstop: EventHandler;
+  ondataavailable: OnDataAvailableListener;
+  onpause: EventHandler;
+  onresume: EventHandler;
+  onerror: EventHandler;
+  readonly videoBitsPerSecond: number;
+  readonly audioBitsPerSecond: number;
+  start(timeslice: number): void;
+  stop(): void;
+  pause(): void;
+  resume(): void;
+  requestData(): void;
+  static isTypeSupported(type: string): boolean;
 }

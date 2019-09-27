@@ -27,7 +27,7 @@ Portable Camera, audio, desktop capture Node.js library.
 
 After searching for an easy to use portable library to access the webcam directly from node.js I didn't found a library that works in windows, macOs and linux, without native dependencies that users need ot manually install (or even so, they won't work). 
 
-This library solves the problem with an easy approach. Use headless browser to capture the video,  draw in canvas and post the image data from there to the Node.js side using page.exposeFunction() and without almost any encode since the image data is passed as array buffer. 
+This library solves the problem with an easy approach. Use headless browser to capture the video, draw in canvas and pass the image data  the Node.js context as fast as possible (`age.exposeFunction()`) and with minimal processing. It uses HTMLCanvasElement getImageData when returning raw image data or HTMLCanvasElement.toBlob() when retuning encoded images such as png, jpg. In both cases using ArrayBuffer
  
 ## Install
 
@@ -44,46 +44,45 @@ npm install camera-capture puppeteer
 ```js
 import {VideoCapture} from 'camera-capture'
 const c = new VideoCapture()
-c.addFrameListener(frame => {  // frame is an ImageData : {width: 480, height: 360, data: UIntArray}
-  // use a library or render the image data to a surface... - 
-  // or save the raw frames and later make a video with image-magick or ffmpeg
+c.addFrameListener(frame => {  
+  // frame by default is unencoded raw Image Data `{width: 480, height: 360, data: UIntArray}``
+  // which is often what image processing / surfaces interfaces expect for fast processing. 
+  // Use `mime` option to receive it in other formats (see examples below)
+  surface.putImageData(0,0,frame.width, frame.height, frame.data)
 })
-await c.start()
+// pause / resume frame emission (without tunning off the camera)
+setTimeout(()=>c.pause(), 1000)
+setTimeout(()=>c.resume(), 2000)
+// shutdown everything, including, camera, browser, server:
+setTimeout(()=>c.stop(), 3000)
 console.log('Capturing camera');
+await c.start() // promise will be resolved only when `stop`
+console.log('Stopping camera capture');
 ```
 
 ### Manual frame read
 
+Instead of using start() and being notified on each frame, just call `initialize()` and read frames programmatically:
+
 ```js
 import {VideoCapture} from 'camera-capture'
 const c = new VideoCapture({
-  width: 100, height: 100, port: 8083
+  mime: 'image/png'
 })
 await c.initialize()
-// ... some time pass
-const f = await c.readFrame()  // read the current frame (f is an ImageData)
-// ... some time pass
-const f2 = await c.readFrame()  // take another shot
-```
-
-### Encoded Frames
-
-```js
-import {VideoCapture} from 'camera-capture'
-const c = new VideoCapture({ width: 200, height: 200,  mime: 'image/png'})
-await c.initialize()
-const f = await c.readFrame()               // PNG as configured
+let f = await c.readFrame()               // PNG as configured
 writeFileSync('tmp.png', f.data)
-const f2 = await c.readFrame('image/jpeg')  // jpeg
-writeFileSync('tmp.jpg', f2.data)
-const f3 = await c.readFrame('image/webp')  // webp
-writeFileSync('tmp.webp', f3.data)
-const f5 = await c.readFrame('rgba')        // raw image data (as default)
-writeFileSync('tmp-8bit-200x200.rgba', f5.data)
+f = await c.readFrame('image/webp')       // take another shot this time as webp image
+writeFileSync('tmp.webp', f.data)
+f = await c.readFrame('image/jpeg') // jpeg
+writeFileSync('tmp.jpg', f.data)
+f = await c.readFrame('rgba')       // raw image data (as default)
+writeFileSync('tmp-8bit-200x200.rgba', f.data)
 ```
 
-### Recording
-The following uses DOM MediaRecorder API to record video. Notice that it doesn't produce screenshots or store anything on the hard drive so the result is a excellent quality video but it could consume lots of memory on long recordings. If that's an issue perhaps it's better to store frame by frame to hard drive and then use a video assembler like ffmpeg / imagemagick. (in the roadmap):
+### Recording camera video
+
+The following uses DOM MediaRecorder API to record video. Notice that it all happens in the browser, on memory, so the result is a excellent quality video but it could consume lots of memory on long recordings. If that's an issue perhaps it's better to store frame by frame to hard drive and then use a video assembler like ffmpeg / imagemagick. (in the roadmap):
 
 ```ts
 import {VideoCapture} from 'camera-capture'
@@ -94,6 +93,7 @@ await sleep(500)
 const data = await c.stopRecording()
 writeFileSync('tmp6.webm', data)
 ```
+
 ## Command line
 
 TODO - TBD
@@ -134,16 +134,17 @@ About, 30 frames per second (size  600x400, format: raw image data)
 * [Capture class](https://github.com/cancerberoSgx/camera-capture/blob/master/docs/modules/_capture_.md)
  
 ## TODO / Road map
-- [ ] check c.addFrameListener() with encoded images
 - [ ] investigate why/how to pass the buffer / array buffer view  directly without transforming it to number[] / and array buffer views
+  -  se TextEncoder/TextDecoder to serialize the data as a single char-per-byte string (using windows-1252 encoding) and deserialize it in Node on the other side which is fast (since passing strings is much faster).
 - [ ] test if toDataUrl is faster than toBlob
 - [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
 - [ ] CLI
-- [ ] performance tests (fps raw image data and encoded imgs)
+- [ ] pause/resume / start/stop should work for recording too. 
+- [ ] performance tests (fps raw image data and encoded images)
 - [ ] do we really need to serialize constrains ? 
 - [ ] video recording formats other than webm?
-- [ ] video recording constrints - size - 
+- [ ] video recording constraints - size - 
 - [ ] audio recording only API
 - [ ] record desktop ? possible ?
 - [ ] desktop screenshot only API
@@ -151,6 +152,8 @@ About, 30 frames per second (size  600x400, format: raw image data)
 - [ ] webcam screenshot only API
 - [ ] geo location (get the coords) ? (need https?)
 - [ ] change video size dynamically ?
+-
+- [x] check c.addFrameListener() with encoded images
 - [x] real world example: native app
 - [x] encode in browser supported formats (png, jpg)
 - [x] c.readFrame() users read manually instead listener - loop controlled by users.

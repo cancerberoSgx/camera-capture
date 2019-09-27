@@ -6,8 +6,10 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
+    "postinstall": "npx yackage install",
     "clean": "rm -rf tmp* dist test-browser-outdir working_tmp",
     "build": "npm run clean && npx tsc && cp src/n.png dist/src ",
+    "start": "npm run build && yode/yode-v0.4.2-darwin-x64/yode dist/src/app2",
     "format": "npx ts-refactor format \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk",
     "organizeImports": "npx ts-refactor organizeImports \"src/**/*.ts*\" \"test/**/*.ts*\" ./formatCodeSettings.json --tsConfigPath ./tsconfig.json --dontAsk ",
     "lint": "npm run organizeImports && npm run format",

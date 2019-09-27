@@ -13,3 +13,8 @@ YBD
 ## TODO
 
 - [ ]    
+
+
+Notes
+
+for f in lenna* ; do cat $f | convert - miff:- ; done | convert - -rotate 33 miff:- | convert - -scale 133 miff:- | convert - tmp2.gif
