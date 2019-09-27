@@ -28,21 +28,32 @@ export class VideoCapture extends CaptureBase {
       await l(d)
     }))
   }
+
   /**
    */
   async stopCamera() {
     checkThrow(this.server && this.browser && this.page, 'Expected started before calling stop()')
     this.initialized = false
     this.capturing = false
-    await this.page!.evaluate(() => ((window as any).videoStream as MediaStream) && ((window as any).videoStream as MediaStream).getTracks().forEach(t => t.stop()))
+    // await this.page!.evaluate(() => ((window as any).videoStream as MediaStream) && ((window as any).videoStream as MediaStream).getTracks().forEach(t => t.stop()))
+    await sleep(500)
+
+    await this.page!.evaluate(() => {
+        const video = document.querySelector<HTMLVideoElement>('video')!;
+      (video.srcObject as MediaStream)!.getTracks().forEach(t => t.stop())
+
+    })
+    await sleep(500)
   }
 
   /**
     */
   async stop() {
     checkThrow(this.server && this.browser, 'Expected started before calling stop()')
+    
+    // ((window as any).videoStream as MediaStream) && ((window as any).videoStream as MediaStream).getTracks().forEach(t => t.stop()))
     await this.stopCamera()
-    await sleep(10)
+    await sleep(500)
     await super.stop()
   }
 
@@ -76,8 +87,8 @@ export class VideoCapture extends CaptureBase {
     if (this.initialized) {
       return
     }
+    // this.initialized = true
     await super.initialize()
-
     await this.page!.addScriptTag({ content: readFileSync(join(__dirname, 'assets', 'buffer-5.4.3.min.js')).toString() })
     await this.page!.evaluate((canvasToArrayBufferS, recordTestS, blobToArrayBuffer) => {
       const d = document.createElement('div')
@@ -178,12 +189,12 @@ export class VideoCapture extends CaptureBase {
         const canvas = document.querySelector<HTMLCanvasElement>('canvas')!
         canvas.width = width
         canvas.height = height
-        // TODO: do we really need to serialize constrains ? 
         const parsedConstraints = JSON.parse(constraints) as MediaStreamConstraints
         navigator.mediaDevices.getUserMedia(parsedConstraints)
           .then(stream => {
             video.onerror = reject;
-            (window as any).videoStream = video.srcObject = stream
+            video.srcObject = stream
+            // (window as any).videoStream = video.srcObject = stream
             video.onplay = (() => setTimeout(() => resolve(), 200))
           })
           .catch(error => {

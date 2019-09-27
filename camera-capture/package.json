@@ -1,6 +1,6 @@
 {
   "name": "camera-capture",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Super portable, fast camera capture library for node.js (server). TypeScript/JavaScript easy to use APIs. Uses puppeteer headless browser to capture webcam video (audio/desktop, recording, etc) and stream back to node.js frame by frame in plain image data for optimal speed or optionally in encoded formats like jpeg, png, bmp, etc",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",

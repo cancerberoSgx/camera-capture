@@ -1,6 +1,6 @@
 // this example takes rgba image data frames abd uses jimp to convert to jpeg to finally render in node-gui. 
 // is not optimal - imagedata is basically not used/not supported - see app2.ts for more optimal approach
-import {tryTo} from 'misc-utils-of-mine-generic'
+import {tryTo, sleep} from 'misc-utils-of-mine-generic'
 import { VideoCapture, ImageData } from 'camera-capture'
 import { Window, Container, MessageLoop, Image, Label, Button } from 'gui'
 import { realpathSync, readFileSync } from 'fs'
@@ -13,15 +13,11 @@ async function main() {
 
   const w = Window.create({})
   w.onClose=()=>{
-    tryTo(()=>capture.stopCamera()); 
-    process.exit(0)
+    capture.stopCamera().then(()=>process.exit(0)).catch(()=>process.exit(1))
   }
   const c2 = Container.create()
   w.setContentView(c2)
   w.setContentSize({ width: 600, height: 600, })
-  //  heads up - we need to activate here and not after the capturer fr some reason
-  w.center()
-  w.activate()
 
   c2.setStyle({ flex: 1, width: '100%', height: '100%', flexDirection: 'column' })
   const options = Container.create()
@@ -47,15 +43,29 @@ async function main() {
     const stop = Button.create('stopCamera')
   stop.setStyle({ flexDirection: 'column' })
   options.addChildView(stop)
-  stop.onClick=()=>
-    capture.stopCamera()
-  
+  stop.onClick=async ()=>{
+    // await sleep(1100)
+    MessageLoop.postDelayedTask(200, async ()=>await capture.stop())
+    
+    // await sleep(1100)
+    
+  }
    const start = Button.create('startCamera')
   start.setStyle({ flexDirection: 'column' })
   options.addChildView(start)
-  start.onClick=()=>
-    capture.start()
-  
+  start.onClick=async ()=>{
+  // await sleep(1100)
+  try {
+    // await capture.start()
+    //  startEventLoop()
+    MessageLoop.postDelayedTask(200, async ()=>await capture.start())
+
+  } catch (error) {
+    console.log('start error', error, error.stack);
+    
+  }
+    // await sleep(1100)
+  }
   const canvas = Container.create()
   canvas.setStyle({ flex: 1, width: '100%', height: '100%', flexDirection: 'row', flexGrow: 1 })
   c2.addChildView(canvas)
@@ -69,22 +79,38 @@ async function main() {
   }, 1000)
 
   const capture = new VideoCapture({
-    debug: true, width: 480, height: 360, mkdirServed: true, port: 8081, mime: 'image/jpeg', constrains: {audio: false, video: {aspectRatio: 1, width: 480, height: 360}}
+    debug: true, width: 480, height: 360, mkdirServed: true, port: 8081, 
+    mime: 'image/jpeg', constrains: 
+    {
+      audio: false, video: {aspectRatio: 1, width: 480, height: 360
+    }}
   })
   
   capture.addFrameListener(async frame => {
-    img = Image.createFromBuffer(frame.data, 1)
+    img = frame && frame.data && frame.data.length ? Image.createFromBuffer(frame.data, 1) : img
     canvas.schedulePaint()
     counter++
   })
-  await capture.start()
 
+  // await capture.start()
+    console.log('Starting event loop');
+ startEventLoop()
+    MessageLoop.postDelayedTask(1000, async ()=>await capture.start())
 
+function startEventLoop(){
+  // if(typeof MessageLoop.run!=='undefined'){
 
-  if (!process.versions.yode) {
+  //  heads up - we need to activate here and not after the capturer fr some reason
+  w.center()
+  w.activate()
+   if (!process.versions.yode) {
     MessageLoop.run()
-    w.close()
+    console.log('Good bye');
+    // w.close()
+  }else {
+    console.log('Good bye22222');
   }
-
 }
+}
+
 main()
