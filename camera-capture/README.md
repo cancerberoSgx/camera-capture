@@ -12,6 +12,7 @@ Portable Camera, audio, desktop capture Node.js library.
   * [Managed frame read](#managed-frame-read)
   * [Manual frame read](#manual-frame-read)
   * [Encoded Frames](#encoded-frames)
+  * [Recording](#recording)
 - [Command line](#command-line)
 - [Summary](#summary)
   * [Design summary](#design-summary)

@@ -3,7 +3,6 @@ import { checkThrow, mergeRecursive, sleep } from 'misc-utils-of-mine-generic'
 import puppeteer, { LaunchOptions } from 'puppeteer'
 import { canvasToArrayBuffer, startRecording } from './browser'
 import { staticServer } from './staticServer'
-import { writeFileSync } from 'fs'
 
 type V = void | Promise<void>
 

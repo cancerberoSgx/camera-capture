@@ -61,7 +61,7 @@ declare class MediaRecorder {
   static isTypeSupported(type: string): boolean;
 }
 
-export function startRecording(options ={ mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }) {
+export function startRecording(options = { mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }) {
   return new Promise(resolve => {
     const mediaSource = new MediaSource()
     let sourceBuffer: SourceBuffer
@@ -69,33 +69,24 @@ export function startRecording(options ={ mimeType: 'video/webm;codecs=vp8', wid
       sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"')
     }, false)
 
-    const video = document.querySelector<HTMLVideoElement>('video')!;
-    // const options = {}
-     (window as any).  recordedBlobs  = [] as Blob[]
-    // let options = { mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }
+    const video = document.querySelector<HTMLVideoElement>('video')!
+      ; (window as any).recordedBlobs = [] as Blob[]
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
       console.error(`${options.mimeType} is not Supported`)
-      // console.error( `${options.mimeType} is not Supported`)
-      // options = { mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }
-      // if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-      //   console.error(`${options.mimeType} is not Supported`)
-      //   // console.error( `${options.mimeType} is not Supported`)
-      //   options = { mimeType: 'video/webm', width: 480, height: 320 }
-      //   if (!MediaRecorder.isTypeSupported(options.mimeType)) {
-      //     console.error(`${options.mimeType} is not Supported`)
-      //     // console.error( `${options.mimeType} is not Supported`)
-      //     options = { mimeType: '', width: 480, height: 320 }
-      //   }
-      // }
+      options = { mimeType: 'video/webm', width: 480, height: 320 }
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        console.error(`${options.mimeType} is not Supported`)
+        options = { mimeType: '', width: 480, height: 320 }
+      }
     }
     try {
-     const mediaRecorder = new MediaRecorder(video.srcObject as MediaStream, options)
+      const mediaRecorder = new MediaRecorder(video.srcObject as MediaStream, options)
       mediaRecorder.onstop = (event: any) => {
         console.log('Recorder stopped: ', event)
       }
       mediaRecorder.ondataavailable = (event: any) => {
         if (event.data && event.data.size > 0) {
-           (window as any).  recordedBlobs .push(event.data)
+          (window as any).recordedBlobs.push(event.data)
         }
       }
       mediaRecorder.start(10) // collect 10ms of data
