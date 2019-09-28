@@ -41,7 +41,7 @@
 
 \+ **new MediaRecorder**(`stream`: MediaStream, `options`: [MediaRecorderOptions](../modules/_browser_.md#mediarecorderoptions)): *[MediaRecorder](_browser_.mediarecorder.md)*
 
-*Defined in [browser.ts:105](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L105)*
+*Defined in [browser.ts:105](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L105)*
 
 **Parameters:**
 
@@ -58,7 +58,7 @@ Name | Type |
 
 • **audioBitsPerSecond**: *number*
 
-*Defined in [browser.ts:117](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L117)*
+*Defined in [browser.ts:117](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L117)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • **mimeType**: *string*
 
-*Defined in [browser.ts:108](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L108)*
+*Defined in [browser.ts:108](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L108)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • **ondataavailable**: *[OnDataAvailableListener](../modules/_browser_.md#ondataavailablelistener)*
 
-*Defined in [browser.ts:112](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L112)*
+*Defined in [browser.ts:112](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L112)*
 
 ___
 
@@ -82,7 +82,7 @@ ___
 
 • **onerror**: *[EventHandler](../modules/_browser_.md#eventhandler)*
 
-*Defined in [browser.ts:115](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L115)*
+*Defined in [browser.ts:115](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L115)*
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 • **onpause**: *[EventHandler](../modules/_browser_.md#eventhandler)*
 
-*Defined in [browser.ts:113](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L113)*
+*Defined in [browser.ts:113](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L113)*
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 • **onresume**: *[EventHandler](../modules/_browser_.md#eventhandler)*
 
-*Defined in [browser.ts:114](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L114)*
+*Defined in [browser.ts:114](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L114)*
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 • **onstart**: *[EventHandler](../modules/_browser_.md#eventhandler)*
 
-*Defined in [browser.ts:110](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L110)*
+*Defined in [browser.ts:110](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L110)*
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 • **onstop**: *[EventHandler](../modules/_browser_.md#eventhandler)*
 
-*Defined in [browser.ts:111](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L111)*
+*Defined in [browser.ts:111](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L111)*
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 • **state**: *[RecordingState](../modules/_browser_.md#recordingstate)*
 
-*Defined in [browser.ts:109](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L109)*
+*Defined in [browser.ts:109](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L109)*
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 • **stream**: *MediaStream*
 
-*Defined in [browser.ts:107](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L107)*
+*Defined in [browser.ts:107](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L107)*
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 • **videoBitsPerSecond**: *number*
 
-*Defined in [browser.ts:116](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L116)*
+*Defined in [browser.ts:116](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L116)*
 
 ## Methods
 
@@ -146,7 +146,7 @@ ___
 
 ▸ **pause**(): *void*
 
-*Defined in [browser.ts:120](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L120)*
+*Defined in [browser.ts:120](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L120)*
 
 **Returns:** *void*
 
@@ -156,7 +156,7 @@ ___
 
 ▸ **requestData**(): *void*
 
-*Defined in [browser.ts:122](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L122)*
+*Defined in [browser.ts:122](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L122)*
 
 **Returns:** *void*
 
@@ -166,7 +166,7 @@ ___
 
 ▸ **resume**(): *void*
 
-*Defined in [browser.ts:121](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L121)*
+*Defined in [browser.ts:121](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L121)*
 
 **Returns:** *void*
 
@@ -176,7 +176,7 @@ ___
 
 ▸ **start**(`timeslice`: number): *void*
 
-*Defined in [browser.ts:118](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L118)*
+*Defined in [browser.ts:118](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L118)*
 
 **Parameters:**
 
@@ -192,7 +192,7 @@ ___
 
 ▸ **stop**(): *void*
 
-*Defined in [browser.ts:119](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L119)*
+*Defined in [browser.ts:119](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L119)*
 
 **Returns:** *void*
 
@@ -202,7 +202,7 @@ ___
 
 ▸ **isTypeSupported**(`type`: string): *boolean*
 
-*Defined in [browser.ts:123](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L123)*
+*Defined in [browser.ts:123](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L123)*
 
 **Parameters:**
 

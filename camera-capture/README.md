@@ -133,12 +133,12 @@ About, 30 frames per second (size  600x400, format: raw image data)
 * [Capture class](https://github.com/cancerberoSgx/camera-capture/blob/master/docs/modules/_capture_.md)
  
 ## TODO / Road map
-- [ ] investigate why/how to pass the buffer / array buffer view  directly without transforming it to number[] / and array buffer views
-  -  se TextEncoder/TextDecoder to serialize the data as a single char-per-byte string (using windows-1252 encoding) and deserialize it in Node on the other side which is fast (since passing strings is much faster).
 - [ ] test if toDataUrl is faster than toBlob
 - [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
 - [ ] CLI
+- [ ] stopVideo refactor TODOs
+- [ ] a free port number resolver - try until one is available (conection successful)
 - [ ] pause/resume / start/stop should work for recording too. 
 - [ ] performance tests (fps raw image data and encoded images)
 - [ ] do we really need to serialize constrains ? 
@@ -151,7 +151,8 @@ About, 30 frames per second (size  600x400, format: raw image data)
 - [ ] webcam screenshot only API
 - [ ] geo location (get the coords) ? (need https?)
 - [ ] change video size dynamically ?
--
+- [x] investigate why/how to pass the buffer / array buffer view  directly without transforming it to number[] / and array buffer views
+  -  using Buffer (TextEncoder/TextDecoder to serialize the data as a single char-per-byte string (using windows-1252 encoding) and deserialize it in Node on the other side which is fast (since passing strings is much faster).
 - [x] check c.addFrameListener() with encoded images
 - [x] real world example: native app
 - [x] encode in browser supported formats (png, jpg)

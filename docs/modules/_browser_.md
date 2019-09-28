@@ -31,7 +31,7 @@
 
 Ƭ **EventHandler**: *TODO*
 
-*Defined in [browser.ts:99](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L99)*
+*Defined in [browser.ts:99](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L99)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 Ƭ **MediaRecorderOptions**: *TODO*
 
-*Defined in [browser.ts:95](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L95)*
+*Defined in [browser.ts:95](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L95)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 Ƭ **OnDataAvailableListener**: *function*
 
-*Defined in [browser.ts:101](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L101)*
+*Defined in [browser.ts:101](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L101)*
 
 #### Type declaration:
 
@@ -65,7 +65,7 @@ ___
 
 Ƭ **RecordingState**: *TODO*
 
-*Defined in [browser.ts:97](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L97)*
+*Defined in [browser.ts:97](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L97)*
 
 ## Functions
 
@@ -73,7 +73,7 @@ ___
 
 ▸ **blobToArrayBuffer**(`blob`: Blob): *Promise‹ArrayBuffer›*
 
-*Defined in [browser.ts:6](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L6)*
+*Defined in [browser.ts:6](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L6)*
 
 Self contained function to transform a [Blob] into [ArrayBuffer]. Notice that this function is meant to be serialized and evaluated in a browser context that's why its dependencies must be controlled.
 
@@ -91,7 +91,7 @@ ___
 
 ▸ **canvasToArrayBuffer**(`canvas`: HTMLCanvasElement, `mime`: string, `quality`: number, `blobToArrayBufferFn`: [blobToArrayBuffer](_browser_.md#blobtoarraybuffer)): *Promise‹ArrayBuffer›*
 
-*Defined in [browser.ts:30](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L30)*
+*Defined in [browser.ts:30](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L30)*
 
 Reads given [HTMLCanvasElement] image encoded in given format and quality and return its content as [ArrayBuffer]. Depends on [blobToArrayBufferFn] which must be given or assumed to be global.  Notice that this function is meant to be serialized and evaluated in a browser context that's why its dependencies must be controlled.
 
@@ -112,7 +112,7 @@ ___
 
 ▸ **startRecording**(`options`: [StartRecordingOptions](../interfaces/_browser_.startrecordingoptions.md)): *Promise‹unknown›*
 
-*Defined in [browser.ts:46](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L46)*
+*Defined in [browser.ts:46](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L46)*
 
 Uses [MediaRecorder] to start recording current captured video.
 Notice that this function is meant to be serialized and evaluated in a browser context that's why its dependencies must be controlled.

@@ -20,7 +20,7 @@
 
 • **data**: *Uint8ClampedArray*
 
-*Defined in [types.ts:51](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L51)*
+*Defined in [types.ts:51](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L51)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **height**: *number*
 
-*Defined in [types.ts:50](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L50)*
+*Defined in [types.ts:50](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L50)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **width**: *number*
 
-*Defined in [types.ts:49](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L49)*
+*Defined in [types.ts:49](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L49)*

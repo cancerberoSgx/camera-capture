@@ -14,7 +14,7 @@
 
 ▸ **staticServer**(`basePath`: string, `port`: number, `onFound`: Fn, `onNotFound`: Fn): *Promise‹Server›*
 
-*Defined in [staticServer.ts:6](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/staticServer.ts#L6)*
+*Defined in [staticServer.ts:6](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/staticServer.ts#L6)*
 
 **Parameters:**
 

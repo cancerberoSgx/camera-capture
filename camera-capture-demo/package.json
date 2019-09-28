@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "camera-capture": "0.0.10",
+    "camera-capture": "0.0.11",
     "gui": "github:cancerberosgx/node-gui",
     "misc-utils-of-mine-generic": "^0.2.34",
     "puppeteer": "^1.20.0"

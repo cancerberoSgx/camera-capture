@@ -21,7 +21,7 @@
 
 Ƭ **Listener**: *function*
 
-*Defined in [types.ts:46](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L46)*
+*Defined in [types.ts:46](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L46)*
 
 #### Type declaration:
 
@@ -39,4 +39,4 @@ ___
 
 Ƭ **SupportedFormats**: *"image/png" | "image/jpeg" | "image/webp" | "rgba"*
 
-*Defined in [types.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L16)*
+*Defined in [types.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L16)*

@@ -32,7 +32,7 @@
 
 \+ **new CaptureBase**(`o`: [CaptureBaseOptions](../interfaces/_types_.capturebaseoptions.md)): *[CaptureBase](_capturebase_.capturebase.md)*
 
-*Defined in [captureBase.ts:14](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L14)*
+*Defined in [captureBase.ts:14](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L14)*
 
 **Parameters:**
 
@@ -48,7 +48,7 @@ Name | Type | Default |
 
 • **browser**? : *puppeteer.Browser*
 
-*Defined in [captureBase.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L13)*
+*Defined in [captureBase.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L13)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • **o**: *[CaptureBaseOptions](../interfaces/_types_.capturebaseoptions.md)*
 
-*Defined in [captureBase.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L16)*
+*Defined in [captureBase.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L16)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 • **page**? : *puppeteer.Page*
 
-*Defined in [captureBase.ts:14](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L14)*
+*Defined in [captureBase.ts:14](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L14)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **server**? : *Server*
 
-*Defined in [captureBase.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L12)*
+*Defined in [captureBase.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L12)*
 
 ## Methods
 
@@ -80,7 +80,7 @@ ___
 
 ▸ **initialize**(): *Promise‹void›*
 
-*Defined in [captureBase.ts:29](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L29)*
+*Defined in [captureBase.ts:29](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L29)*
 
 **Returns:** *Promise‹void›*
 
@@ -90,6 +90,6 @@ ___
 
 ▸ **stop**(): *Promise‹void›*
 
-*Defined in [captureBase.ts:19](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L19)*
+*Defined in [captureBase.ts:19](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L19)*
 
 **Returns:** *Promise‹void›*

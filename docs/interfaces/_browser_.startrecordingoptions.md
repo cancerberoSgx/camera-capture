@@ -21,7 +21,7 @@
 
 • **height**? : *undefined | number*
 
-*Defined in [browser.ts:89](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L89)*
+*Defined in [browser.ts:89](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L89)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **mimeType**? : *undefined | string*
 
-*Defined in [browser.ts:87](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L87)*
+*Defined in [browser.ts:87](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L87)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **video**: *HTMLVideoElement*
 
-*Defined in [browser.ts:86](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L86)*
+*Defined in [browser.ts:86](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L86)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **width**? : *undefined | number*
 
-*Defined in [browser.ts:88](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/browser.ts#L88)*
+*Defined in [browser.ts:88](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/browser.ts#L88)*

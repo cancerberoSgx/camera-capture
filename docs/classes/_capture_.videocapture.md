@@ -54,7 +54,7 @@
 
 *Overrides [CaptureBase](_capturebase_.capturebase.md).[constructor](_capturebase_.capturebase.md#constructor)*
 
-*Defined in [capture.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L16)*
+*Defined in [capture.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L16)*
 
 **Parameters:**
 
@@ -72,7 +72,7 @@ Name | Type | Default |
 
 *Inherited from [CaptureBase](_capturebase_.capturebase.md).[browser](_capturebase_.capturebase.md#protected-optional-browser)*
 
-*Defined in [captureBase.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L13)*
+*Defined in [captureBase.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L13)*
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 • **capturing**: *boolean* = false
 
-*Defined in [capture.ts:10](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L10)*
+*Defined in [capture.ts:10](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L10)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **counter**: *number* = 0
 
-*Defined in [capture.ts:15](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L15)*
+*Defined in [capture.ts:15](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L15)*
 
 counts [shots]
 
@@ -98,7 +98,7 @@ ___
 
 • **initialized**: *boolean* = false
 
-*Defined in [capture.ts:11](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L11)*
+*Defined in [capture.ts:11](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L11)*
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 • **lastFrame**? : *[ImageData](../interfaces/_types_.imagedata.md)*
 
-*Defined in [capture.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L12)*
+*Defined in [capture.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L12)*
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 • **listeners**: *[Listener](../modules/_types_.md#listener)[]* =  []
 
-*Defined in [capture.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L13)*
+*Defined in [capture.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L13)*
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 *Overrides [CaptureBase](_capturebase_.capturebase.md).[o](_capturebase_.capturebase.md#protected-o)*
 
-*Defined in [capture.ts:18](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L18)*
+*Defined in [capture.ts:18](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L18)*
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 *Inherited from [CaptureBase](_capturebase_.capturebase.md).[page](_capturebase_.capturebase.md#protected-optional-page)*
 
-*Defined in [captureBase.ts:14](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L14)*
+*Defined in [captureBase.ts:14](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L14)*
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 • **recording**: *boolean* = false
 
-*Defined in [capture.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L16)*
+*Defined in [capture.ts:16](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L16)*
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 *Inherited from [CaptureBase](_capturebase_.capturebase.md).[server](_capturebase_.capturebase.md#protected-optional-server)*
 
-*Defined in [captureBase.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/captureBase.ts#L12)*
+*Defined in [captureBase.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/captureBase.ts#L12)*
 
 ## Methods
 
@@ -160,7 +160,7 @@ ___
 
 ▸ **addFrameListener**(`listener`: [Listener](../modules/_types_.md#listener)): *void*
 
-*Defined in [capture.ts:28](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L28)*
+*Defined in [capture.ts:28](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L28)*
 
 Will be notified on managed frame shoot started by [start] method. Notice that this is optional and frames can be arbitrarily read using [readFrame]
 
@@ -178,7 +178,7 @@ ___
 
 ▸ **captureLoop**(): *Promise‹void›*
 
-*Defined in [capture.ts:248](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L248)*
+*Defined in [capture.ts:248](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L248)*
 
 **Returns:** *Promise‹void›*
 
@@ -190,7 +190,7 @@ ___
 
 *Overrides [CaptureBase](_capturebase_.capturebase.md).[initialize](_capturebase_.capturebase.md#initialize)*
 
-*Defined in [capture.ts:107](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L107)*
+*Defined in [capture.ts:107](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L107)*
 
 starts servers, browser, install scripts and global functions used , and start up the video and canvas elements.
 ,media streams / canvas / video in the DOM.
@@ -205,7 +205,7 @@ ___
 
 ▸ **isPaused**(): *boolean*
 
-*Defined in [capture.ts:68](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L68)*
+*Defined in [capture.ts:68](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L68)*
 
 **Returns:** *boolean*
 
@@ -215,7 +215,7 @@ ___
 
 ▸ **isRecording**(): *boolean*
 
-*Defined in [capture.ts:76](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L76)*
+*Defined in [capture.ts:76](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L76)*
 
 **Returns:** *boolean*
 
@@ -225,7 +225,7 @@ ___
 
 ▸ **isStopped**(): *boolean*
 
-*Defined in [capture.ts:72](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L72)*
+*Defined in [capture.ts:72](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L72)*
 
 **Returns:** *boolean*
 
@@ -235,7 +235,7 @@ ___
 
 ▸ **notifyListeners**(`d`: [ImageData](../interfaces/_types_.imagedata.md)): *Promise‹void›*
 
-*Defined in [capture.ts:242](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L242)*
+*Defined in [capture.ts:242](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L242)*
 
 **Parameters:**
 
@@ -251,7 +251,7 @@ ___
 
 ▸ **pause**(): *Promise‹void›*
 
-*Defined in [capture.ts:63](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L63)*
+*Defined in [capture.ts:63](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L63)*
 
 Won't turn off the camera but frame listeners won't be notified which will result on low cpu usage. Use it to switch between managed and manual frame read with [readFrame]. You can unpause calling [resume].
 
@@ -263,7 +263,7 @@ ___
 
 ▸ **readFrame**(`mime`: [SupportedFormats](../modules/_types_.md#supportedformats), `quality`: number): *Promise‹object›*
 
-*Defined in [capture.ts:209](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L209)*
+*Defined in [capture.ts:209](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L209)*
 
 Main public method to capture the current frame on the video camera. [initialized] must be called first. Then this method can be called at will, optionally providing desired image output format.
 
@@ -286,7 +286,7 @@ ___
 
 ▸ **resume**(): *Promise‹void›*
 
-*Defined in [capture.ts:83](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L83)*
+*Defined in [capture.ts:83](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L83)*
 
 Resumes frame listener notification. See [pause].
 
@@ -298,7 +298,7 @@ ___
 
 ▸ **start**(): *Promise‹void›*
 
-*Defined in [capture.ts:91](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L91)*
+*Defined in [capture.ts:91](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L91)*
 
 Starts capturing camera video. If not calling yet it will call [initialize] and after camera is turned on it will start the capture loop, this is frame listeners notification. The loop, by default will be as fast as possible consequently with high cpu overhead. Use [pause] and[resume] to control it. Alternatively, if you just want to read frames arbitrarily y your self, just call [initialize] instead this method and use [readFrame].
 
@@ -310,7 +310,7 @@ ___
 
 ▸ **startCamera**(`o`: MediaStreamConstraints): *Promise‹void›*
 
-*Defined in [capture.ts:130](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L130)*
+*Defined in [capture.ts:130](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L130)*
 
 Just turn on the camera using given constrains and merging them with defaults and the ones given in constructor.
 
@@ -330,7 +330,7 @@ ___
 
 ▸ **startRecording**(`recordOptions`: object): *Promise‹void›*
 
-*Defined in [capture.ts:162](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L162)*
+*Defined in [capture.ts:162](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L162)*
 
  Uses [MediaRecorder] to start recording current captured video. Notice that this happens 100% on memory so take a look at RAM and the time it takes [stopRecording] to encode the video file.
 
@@ -350,7 +350,7 @@ ___
 
 *Overrides [CaptureBase](_capturebase_.capturebase.md).[stop](_capturebase_.capturebase.md#stop)*
 
-*Defined in [capture.ts:53](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L53)*
+*Defined in [capture.ts:53](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L53)*
 
 turns off everything, first recording , turns of camera, frame listeners and at last the server and browser. Everything can be restarted using [initialize] or alternatively [start] to restart frame listener notifications too
 
@@ -362,7 +362,7 @@ ___
 
 ▸ **stopCamera**(): *Promise‹void›*
 
-*Defined in [capture.ts:37](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L37)*
+*Defined in [capture.ts:37](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L37)*
 
 Turns off the camera. frame read loop triggered by [start] won't be cleared but listeners won't be called while camera is off.
 
@@ -376,7 +376,7 @@ ___
 
 ▸ **stopRecording**(`discard`: boolean): *Promise‹undefined | Uint8ClampedArray›*
 
-*Defined in [capture.ts:174](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/capture.ts#L174)*
+*Defined in [capture.ts:174](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/capture.ts#L174)*
 
 Stop video recording (see [startRecording]) and resolves with a encoded video file 'video/webm' which dimensions correspond to the original video constraints.
 

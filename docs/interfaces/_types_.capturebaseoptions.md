@@ -23,7 +23,7 @@
 
 • **debug**? : *undefined | false | true*
 
-*Defined in [types.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L13)*
+*Defined in [types.ts:13](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L13)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **mkdirServed**? : *string | boolean*
 
-*Defined in [types.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L12)*
+*Defined in [types.ts:12](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L12)*
 
 If given, a folder with that path will be created (or if true is given at $HOME/.camera-capture/static) and a index.html file will be copied there so it can be served as static web page for the headless browser to use. This is not often necessary, but particularly when packaging the client package as a desktop application with asar or yackage .
 
@@ -41,7 +41,7 @@ ___
 
 • **port**? : *undefined | number*
 
-*Defined in [types.ts:7](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L7)*
+*Defined in [types.ts:7](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L7)*
 
 Image-capture needs to serve a static HTML so the headless browser capture media from there. If given port number will be used for the server. Default is 8080.
 
@@ -51,4 +51,4 @@ ___
 
 • **puppeteerOptions**? : *LaunchOptions*
 
-*Defined in [types.ts:8](https://github.com/cancerberoSgx/camera-capture/blob/8b5746d/camera-capture/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/cancerberoSgx/camera-capture/blob/31f9c91/camera-capture/src/types.ts#L8)*
