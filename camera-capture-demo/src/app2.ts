@@ -93,11 +93,10 @@ async function main() {
   })
 
   // await capture.start()
-    console.log('Starting event loop');
  startEventLoop()
-    MessageLoop.postDelayedTask(1000, async ()=>await capture.start())
 
 function startEventLoop(){
+    console.log('Starting event loop');
   // if(typeof MessageLoop.run!=='undefined'){
 
   //  heads up - we need to activate here and not after the capturer fr some reason
@@ -105,11 +104,12 @@ function startEventLoop(){
   w.activate()
    if (!process.versions.yode) {
     MessageLoop.run()
-    console.log('Good bye');
+    // console.log('Good bye');
     // w.close()
   }else {
-    console.log('Good bye22222');
+    // console.log('Good bye22222');
   }
+    MessageLoop.postDelayedTask(1000, async ()=>await capture.start())
 }
 }
 

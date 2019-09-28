@@ -17,7 +17,7 @@ test.serial.cb('addFrameListener single ', t => {
 test.serial.cb('addFrameListener multiple ', t => {
   let i = 0
   let t0 = Infinity
-  const N = 50
+  const N = 5
   const c = new VideoCapture({
     width: 200, height: 200, port: 8084
   })
@@ -25,13 +25,11 @@ test.serial.cb('addFrameListener multiple ', t => {
     i++
     t.deepEqual([frame.width, frame.height, frame.data.length], [200, 200, 160000])
     if (i > N) {
-      // console.log(`${N} frames in ` + (Date.now() - t0))
       await c.stop()
       t.end()
     }
   })
   c.initialize().then(() => {
-    // t0 = Date.now()
     c.start()
   })
 })

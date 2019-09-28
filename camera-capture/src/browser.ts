@@ -1,50 +1,16 @@
-// This utilities are serialized (function.prototype.toString()) and evaluated in the browser's context so they must remain independent
+// These utilities are serialized (function.prototype.toString()) and evaluated in the browser's context so they must remain independent
 
 /**
- * @param mime A DOMString indicating the image format. The default type is image/png.
- * @param quality A Number between 0 and 1 indicating image quality if the requested type is image/jpeg or image/webp. If this argument is anything else, the default value for image quality is used. Other arguments are ignored.
+ * Self contained function to transform a [Blob] into [ArrayBuffer]. Notice that this function is meant to be serialized and evaluated in a browser context that's why its dependencies must be controlled.
  */
-export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'image/png', quality = 1): Promise<ArrayBuffer> {
-  return new Promise((resolve, reject) => canvas.toBlob(async blob => {
-    if (blob) {
-      resolve(await (window as any).blobToArrayBuffer(blob))
-      // const r = new FileReader();
-      // r.addEventListener('loadend', e => {
-      //   const ab = r.result;
-      //   if (ab) {
-      //     resolve(ab as ArrayBuffer);
-      //   }
-      //   else {
-      //     reject(new Error('Expected FileReader result'));
-      //   }
-      // }); r.addEventListener('error', e => {
-      //   reject(e)
-      // });
-      // r.readAsArrayBuffer(d);
-    }
-    else {
-      reject(new Error('Expected toBlob() to be defined'));
-    }
-  }, mime, quality))
-}
-
-
-export function blobToArrayBuffer(blob: Blob) {
-  // if (typeof cb !== 'function') {
-  //   throw new Error('second argument must be a function')
-  // }
+export function blobToArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
-    // if (typeof Blob === 'undefined' || !(blob instanceof Blob)) {
-    //   reject(new Error('first argument must be a Blob'))
-    // }
     function onLoadEnd(e: any) {
       reader.removeEventListener('loadend', onLoadEnd, false)
       if (e.error) {
         reject(e.error)
-      }
-      // else resolve((window as any).buffer.Buffer.from(reader.result))
-      else if (reader.result) {
+      } else if (reader.result) {
         resolve(reader.result as ArrayBuffer)
       } else {
         reject(new Error('Expected FileReader result'))
@@ -56,26 +22,49 @@ export function blobToArrayBuffer(blob: Blob) {
 }
 
 
-export function startRecording(options = { mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }) {
+/**
+ * Reads given [HTMLCanvasElement] image encoded in given format and quality and return its content as [ArrayBuffer]. Depends on [blobToArrayBufferFn] which must be given or assumed to be global.  Notice that this function is meant to be serialized and evaluated in a browser context that's why its dependencies must be controlled.
+ * @param mime A DOMString indicating the image format. The default type is image/png.
+ * @param quality A Number between 0 and 1 indicating image quality if the requested type is image/jpeg. If this argument is anything else, the default value for image quality is used. Other arguments are ignored.
+ */
+export function canvasToArrayBuffer(canvas: HTMLCanvasElement, mime: string = 'image/png', quality = 1, blobToArrayBufferFn: typeof blobToArrayBuffer = (window as any).blobToArrayBuffer): Promise<ArrayBuffer> {
+  blobToArrayBufferFn = typeof blobToArrayBufferFn === 'function' ? blobToArrayBufferFn : (window as any).blobToArrayBuffer
+  return new Promise((resolve, reject) => canvas.toBlob(async blob => {
+    if (blob) {
+      resolve(await blobToArrayBufferFn(blob))
+    }
+    else {
+      reject(new Error('Expected toBlob() to be defined'));
+    }
+  }, mime, quality))
+}
+
+/**
+ * Uses [MediaRecorder] to start recording current captured video.
+ * Notice that this function is meant to be serialized and evaluated in a browser context that's why its dependencies must be controlled.
+ */
+export function startRecording(options: StartRecordingOptions = { video: document.querySelector<HTMLVideoElement>('video')!, mimeType: 'video/webm;codecs=vp8', width: 480, height: 320 }) {
   return new Promise(resolve => {
+    options.video = options.video || document.querySelector<HTMLVideoElement>('video')!
+    options.mimeType = options.mimeType || 'video/webm;codecs=vp8'
+    options.width = options.width || 480
+    options.height = options.height || 320
     const mediaSource = new MediaSource()
     let sourceBuffer: SourceBuffer
     mediaSource.addEventListener('sourceopen', () => {
       sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"')
     }, false)
-
-    const video = document.querySelector<HTMLVideoElement>('video')!
       ; (window as any).recordedBlobs = [] as Blob[]
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
       console.error(`${options.mimeType} is not Supported`)
-      options = { mimeType: 'video/webm', width: 480, height: 320 }
-      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+      options = { ...options, mimeType: 'video/webm' }
+      if (!MediaRecorder.isTypeSupported(options.mimeType!)) {
         console.error(`${options.mimeType} is not Supported`)
-        options = { mimeType: '', width: 480, height: 320 }
+        options = { ...options, mimeType: '' }
       }
     }
     try {
-      const mediaRecorder = new MediaRecorder(video.srcObject as MediaStream, options)
+      const mediaRecorder = new MediaRecorder(options.video.srcObject as MediaStream, options)
       mediaRecorder.onstop = (event: any) => {
         console.log('Recorder stopped: ', event)
       }
@@ -92,6 +81,14 @@ export function startRecording(options = { mimeType: 'video/webm;codecs=vp8', wi
     }
   })
 }
+
+export interface StartRecordingOptions {
+  video: HTMLVideoElement
+  mimeType?: string
+  width?: number
+  height?: number
+}
+
 // DOM MediaRecorder missing types
 import { TODO } from 'misc-utils-of-mine-generic'
 

@@ -33,10 +33,10 @@ export class CaptureBase {
       writeFileSync(join(dir, 'index.html'), readFileSync(realpathSync(join(__dirname, 'index.html'))))
     }
     try {
-    this.server = await staticServer(dir, this.o.port || 8080)
-    this.o.debug && console.log('Serving index.html on port ' + (this.o.port || 8080) + '. Folder: "' + dir + '"')
+      this.server = await staticServer(dir, this.o.port || 8080)
+      this.o.debug && console.log('Serving index.html on port ' + (this.o.port || 8080) + '. Folder: "' + dir + '"')
     } catch (error) {
-      console.error('Error while opening server on port ' + (this.o.port || 8080) + '. Folder: "' + dir + '": ', error, error.stack);
+      console.error('Error while opening server on port ' + (this.o.port || 8080) + '. Folder: "' + dir + '": ', error, error.stack)
     }
     const pOptions = mergeRecursive({
       ...{},
@@ -57,6 +57,7 @@ export class CaptureBase {
     })
     this.o.debug && console.log(`Opening address '${`http://127.0.0.1:${this.o.port || 8080}/index.html`}'`)
     await this.page.goto(`http://127.0.0.1:${this.o.port || 8080}/index.html`)
+    await sleep(500)
   }
 
 }

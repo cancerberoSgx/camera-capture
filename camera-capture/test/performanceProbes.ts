@@ -1,8 +1,9 @@
+import { writeFileSync } from 'fs'
 import { sleep } from 'misc-utils-of-mine-generic'
 import { VideoCapture } from '../src/capture'
 
 async function rgba480x320() {
-  const c = new VideoCapture({ port: 8012, width: 480, height: 320, mime: 'rgba' })
+  const c = new VideoCapture({ port: 8012, width: 480, height: 320, mime: 'rgba', constrains: { video: { width: 480, height: 320 } } })
   let counter = 0
   c.addFrameListener(f => {
     counter++
@@ -21,7 +22,7 @@ async function rgba480x320() {
 // rgba480x320()
 
 async function jpg480x320() {
-  const c = new VideoCapture({ port: 8013, width: 480, height: 320, mime: 'image/jpeg' })
+  const c = new VideoCapture({ port: 8013, width: 480, height: 320, mime: 'image/jpeg', constrains: { video: { width: 480, height: 320 } } })
   let counter = 0
   c.addFrameListener(f => {
     counter++
@@ -32,16 +33,17 @@ async function jpg480x320() {
   }, 1000)
   setTimeout(async () => {
     clearInterval(t)
+    writeFileSync('tmp_jpg480x320.jpg', (await c.readFrame()).data)
     await sleep(1200)
     await c.stop()
-  }, 15000)
+  }, 5000)
   await c.start()
 }
 
 
 
 (async () => {
-  await rgba480x320()
+  // await rgba480x320()
   await jpg480x320()
 })()
 

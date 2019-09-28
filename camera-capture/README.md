@@ -44,7 +44,7 @@ npm install camera-capture puppeteer
 import {VideoCapture} from 'camera-capture'
 const c = new VideoCapture()
 c.addFrameListener(frame => {  
-  // frame by default is unencoded raw Image Data `{width: 480, height: 360, data: UIntArray}``
+  // frame by default is unencoded raw Image Data `{width: 480, height: 320, data: UIntArray}``
   // which is often what image processing / surfaces interfaces expect for fast processing. 
   // Use `mime` option to receive it in other formats (see examples below)
   surface.putImageData(0,0,frame.width, frame.height, frame.data)

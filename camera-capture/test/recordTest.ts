@@ -9,5 +9,5 @@ test('simple recording', async t => {
   await c.startRecording()
   await sleep(500)
   const data = await c.stopRecording()
-  t.deepEqual(fileType(data.buffer), { ext: 'webm', mime: 'video/webm' })
+  t.deepEqual(fileType(data!.buffer), { ext: 'webm', mime: 'video/webm' })
 })
