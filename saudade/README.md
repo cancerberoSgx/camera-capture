@@ -12,7 +12,7 @@ YBD
 
 ## TODO
 
-- [ ]    
+- [ ]  --action frames . naming patterns like --mode frames --output "tmp"
 
 
 Notes

@@ -5,8 +5,9 @@ import { dirname, join, basename } from 'path'
 
 export interface Options extends CaptureOptions{
   help?: boolean
-  captureVideoMode: 'frames' | 'record' | 'shot'
+  action: 'frames' | 'video'  |'audio'|'none'
   output?: string
+  headless?: boolean
   timeout?: number
 }
 
@@ -15,10 +16,10 @@ export async function cli(o: Options) {
   if (o.help) {
     printHelpAndExit(0)
   }
-  if (!o.captureVideoMode) {
-    fail('Option --mode option is mandatory')
+  if (!o.action) {
+    fail('Option --action option is mandatory')
   }
-  if(o.captureVideoMode==='frames'){
+  if(o.action==='frames'){
     const c = new VideoCapture(o)
     // let output = o.output ? 
       let counter = 0
@@ -26,19 +27,27 @@ export async function cli(o: Options) {
         mkdirSync(dirname(o.output)||o.output, {recursive: true})
       }
     c.addFrameListener(frame => {
-console.log(counter, join( dirname(o.output!)||o.output!, withoutExtension(basename(o.output!)))+counter+'.png');
-
-      // let output: Writable = process.stdout
+      if(o.output){
+      const f = join( dirname(o.output!)||o.output!, withoutExtension(basename(o.output!)))+(counter+'').padStart(5, '0')+'.png'
         if(typeof o.shots!=='undefined' && counter++ > o.shots) {
           c.stop()
+          return
         }
-        writeFileSync(join( dirname(o.output!)||o.output!, withoutExtension(basename(o.output!)))+counter+'.png', frame.data)
-        const writable = !o.output ? process.stdout : createWriteStream(join( dirname(o.output!)||o.output!, withoutExtension(basename(o.output!)))+counter+'.png')
-      if(!o.output){
+        writeFileSync(f, frame.data)
+      }
+      else{
+        console.error('--output mandatory (TODO)');
+         c.stop()
+          return
         // writable.write(frame.data as any )
         // writable.write('\0')
         // writable.destroy()
       }
+counter++
+// console.log(counter, );
+
+      // let output: Writable = process.stdout
+        // const writable = !o.output ? process.stdout : createWriteStream(f)
       // else {
 
       // }

@@ -133,15 +133,24 @@ About, 30 frames per second (size  600x400, format: raw image data)
 * [Capture class](https://github.com/cancerberoSgx/camera-capture/blob/master/docs/modules/_capture_.md)
  
 ## TODO / Road map
+
+### performance
+- [ ] performance 2: sharing a webrtc session between node and browserthis could imply not having to read/write image data at all just consuming a video stream ?
 - [ ] test if toDataUrl is faster than toBlob
-- [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] perhaps is faster to do the capture loop all together inside the DOM, instead calling evaluate() on each iteration?
+- [ ] performance 1 post frames to a node.js server , possibly using  websockets
+
+## misc
+
+- [ ] supposedly qt supports webrtc natively - oerhaos a demo connecting pptr and qt desktop app ? 
+- [ ] probably for frames a generator / or observable is more appropriate than even listeners.
 - [ ] CLI
+- [ ] demo - stream local camera capture on a server web page.
 - [ ] stopVideo refactor TODOs
 - [ ] a free port number resolver - try until one is available (conection successful)
 - [ ] pause/resume / start/stop should work for recording too. 
-- [ ] performance tests (fps raw image data and encoded images)
 - [ ] do we really need to serialize constrains ? 
+- [ ] performance tests (fps raw image data and encoded images)
 - [ ] video recording formats other than webm?
 - [ ] video recording constraints - size - 
 - [ ] audio recording only API
@@ -166,3 +175,6 @@ About, 30 frames per second (size  600x400, format: raw image data)
 - [ ] research how fast/slow is painting canvas pixel by pixel from image data than showImage in node-gui
 - [ ] TODO: support fps control like in opencv
 - [ ]
+
+## ideas
+- use a desktop GUI library like node-gui to render a node.js canvas  - target users: people using jsdom / node canvas for testing canvas based apps headless have the possibility to render it (not just a screenshot but as actual stream of frames natively in the desktop)idea for for a project node-gui : a jsdom-node-canvas renderer: use jsdom+node-canvas to real-time render the canvas element in a view.
