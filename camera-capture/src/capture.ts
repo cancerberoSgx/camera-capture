@@ -239,6 +239,49 @@ export class VideoCapture extends CaptureBase {
     }
   }
 
+  /**
+   * Get devices list
+   */
+  async getDevicesList(o: MediaStreamConstraints = {}) {
+    const constraints = {
+      ...{
+        audio: false,
+        video: true,
+      },
+      ...this.o.constrains,
+      ...o,
+    };
+
+    const resultString = await this.page!.evaluate(
+      (constraints) => {
+        return new Promise<string>((resolve, reject) => {
+          const parsedConstraints = JSON.parse(
+            constraints
+          ) as MediaStreamConstraints;
+
+          navigator.mediaDevices
+            .getUserMedia(parsedConstraints)
+            .then(() => {
+              navigator.mediaDevices.enumerateDevices().then((devices) => {
+                resolve(JSON.stringify(devices));
+              });
+            })
+            .catch((error) => {
+              console.error(
+                "navigator.MediaDevices.getUserMedia error: ",
+                error.message,
+                error.name
+              );
+              reject(error);
+            });
+        });
+      },
+      JSON.stringify(constraints)
+    );
+
+    return JSON.parse(resultString);
+  }
+
   protected async  notifyListeners(d: ImageData) {
     await serial(this.listeners.map(l => async () => {
       await l(d)
